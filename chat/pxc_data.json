@@ -1,0 +1,884 @@
+{
+  "2866268": {
+    "descripcion": "Fuente TRIO-PS/ 1AC/24DC/ 2.5 Fuente trio de 24 VDC a 2.5 Amp de 120/220Vac"
+  },
+  "2866310": {
+    "descripcion": "Fuente TRIO-PS/ 1AC/24DC/ 5 Fuente trio de 24 VDC a 5 Amp de 120/220Vac"
+  },
+  "2866323": {
+    "descripcion": "Fuente TRIO-PS/ 1AC/24DC/10 Fuente trio de 24 VDC a 10 Amp de 120/220Vac"
+  },
+  "2866381": {
+    "descripcion": "Fuente TRIO-PS/ 1AC/24DC/20 Fuente aliment. carr. simétr., conmutada primario, monofásica, salida: 24 V DC / 20 A"
+  },
+  "2866462": {
+    "descripcion": "Fuente TRIO-PS/ 3AC/24DC/ 5 Fuente aliment. carr. simétr., conmutada primario, trifásica, salida: 24 V DC / 5 A"
+  },
+  "2866459": {
+    "descripcion": "Fuente TRIO-PS/ 3AC/24DC/10 Fuente aliment. carr. simétr., conmutada primario, trifásica, salida: 24 V DC / 10 A"
+  },
+  "2866394": {
+    "descripcion": "Fuente TRIO-PS/ 3AC/24DC/20 Fuente trio de 24 VDC a 20 Amp de trifasica a 440Vac"
+  },
+  "1683510": {
+    "descripcion": "Cable M12 recto Hembra 3 polos 5 mts. Extremo libre"
+  },
+  "1694525": {
+    "descripcion": "Cable M12 codo Hembra 3 polos 5 mts. Extremo libre"
+  },
+  "1668124": {
+    "descripcion": "Cable M12 recto Hembra 4 polos 5 mts. Extremo libre"
+  },
+  "1668247": {
+    "descripcion": "Cable M12 codo Hembra 4 polos 5 mts. Extremo libre"
+  },
+  "1669848": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Extremo de cable libre, a Hembra de conexión par M12,  5 m"
+  },
+  "1669877": {
+    "descripcion": "Cable M12 codo Hembra 5 polos 5 mts. Extremo libre"
+  },
+  "1520369": {
+    "descripcion": "Cable M12 recto Hembra 8 polos 5 mts. Extremo libre"
+  },
+  "1669628": {
+    "descripcion": "Cable M8 recto Hembra de 3 polos 5 mts extremo libre"
+  },
+  "1669631": {
+    "descripcion": "Cable M8 codo Hembra de 3 polos 5 mts extremo libre"
+  },
+  "1681868": {
+    "descripcion": "Cable M8 recto Hembra de 4 polos 5 mts extremo libre"
+  },
+  "1681897": {
+    "descripcion": "Cable M8 codo Hembra de 4 polos 5 mts extremo libre"
+  },
+  "1668030": {
+    "descripcion": "Cable M12 recto Macho 3 polos 5 mts. Extremo libre"
+  },
+  "1681127": {
+    "descripcion": "Conector Confeccionable M12 Recto Hembra de 4 polos a tornillo"
+  },
+  "1662528": {
+    "descripcion": "Conector Confeccionable M12 Recto Macho  de 4 polos a tornillo"
+  },
+  "1663116": {
+    "descripcion": "Conector Confeccionable M12 Recto Macho  de 5 polos a tornillo"
+  },
+  "1513347": {
+    "descripcion": "Conector Confeccionable M12 Recto Hembra de 8 polos a tornillo"
+  },
+  "1513334": {
+    "descripcion": "Conector Confeccionable M12 Recto Macho  de 8 polos a tornillo"
+  },
+  "1683455": {
+    "descripcion": "conector en Y M12 (1 macho 2 hembras)"
+  },
+  "1415758": {
+    "descripcion": "INTERFACE PARA PC (120VAC Y RJ45)"
+  },
+  "1527919": {
+    "descripcion": "Conector Din de 24VDC con indicador"
+  },
+  "1527922": {
+    "descripcion": "Conector Din de 120 VAc con indicador"
+  },
+  "1527883": {
+    "descripcion": "Conector Din sin indicador 4 polos"
+  },
+  "2891001": {
+    "descripcion": "Switch Ethernet, 5 puertos TP-RJ45, detección automática de la velocidad de transmisión de datos de 10/100 Mbits/s (RJ45), función autocrossing"
+  },
+  "2891002": {
+    "descripcion": "Switch Ethernet, 8 puertos TP-RJ45, detección automática de la velocidad de transmisión de datos de 10/100 Mbits/s (RJ45), función autocrossing"
+  },
+  "2891933": {
+    "descripcion": "Ethernet Switch, 16 puertos TP-RJ45, registro automático de la velocidad de transmisión de datos de 10 ó 100 Mbits/s (RJ45), función Autocrossing"
+  },
+  "3044076": {
+    "descripcion": "Borne de paso, UT 2,5  Tipo de conexión: Conexión por tornillo, Sección: 0,14 mm² - 4 mm², AWG: 26 - 12, Anchura: 5,2 mm, Color: gris, Tipo de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3047167": {
+    "descripcion": "Separadores para UT2.5, UT4 y UT6"
+  },
+  "3047028": {
+    "descripcion": "Tapa Final Para  UT2.5, UT4 y UT6"
+  },
+  "3044092": {
+    "descripcion": "Clema de tierra Borne de paso, UT 2,5  Tipo de conexión: Conexión por tornillo, Sección: 0,14 mm² - 4 mm², AWG: 26 - 12, Anchura: 5,2 mm, Color: amarillo-verde, Tipo de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3045046": {
+    "descripcion": "Borne de paso, UT 2,5 OG Tipo de conexión: Conexión por tornillo, Sección: 0,14 mm² - 4 mm², AWG: 26 - 12, Anchura: 5,2 mm, Color: naranja, Tipo de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3044102": {
+    "descripcion": "Borne de paso, UT4  Tipo de conexión: Conexión por tornillo, Sección: 0,14 mm² - 6 mm², AWG: 26 - 10, Anchura: 6,2 mm, Color: gris, Tipo de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3044128": {
+    "descripcion": "Clema tierra UT4"
+  },
+  "3022276": {
+    "descripcion": "Soporte final de montaje rápido,CLIPFIX 35-5  para carril simétrico NS 35/7,5 o carril simétrico NS 35/15, con posibilidad de marcado, con posibilidad de aparcamiento para FBS...5, FBS...6, KSS 5, KSS 6, ancho: 5,15 mm, color: gris"
+  },
+  "3046100": {
+    "descripcion": "PORTAFUSIBLE EUROPEO CON INDICADOR 120VAC"
+  },
+  "3046090": {
+    "descripcion": "PORTAFUSIBLE EUROPEO CON INDICADOR 24VDC.Borne para fusible con palanca, color negro, para cartuchos fusible G de 5 x 20 mm, con LED para 24 V AC/DC"
+  },
+  "3004171": {
+    "descripcion": "Portafusible americano sin indicador  para cartucho fusible G, sección: 0,5 - 16 mm², AWG: 26 - 8, anchura: 10,2 mm, color: Negro"
+  },
+  "1201442": {
+    "descripcion": "Soporte final, para montaje sobre carril simétrico NS 32 o NS 35/7,5"
+  },
+  "828767": {
+    "descripcion": "Marcador de cables, Tarjeta, blanco, sin rotular, rotulable con: THERMOMARK CARD PLUS, THERMOMARK CARD, Tipo de montaje: Ensartar, Diámetro de cable: 0,6-50 mm, Superficie útil: 15 x 4 mm  84 pzas. Para manguito"
+  },
+  "828800": {
+    "descripcion": "Rótulo de plástico, Tarjeta, blanco, sin rotular, rotulable con: THERMOMARK CARD PLUS, THERMOMARK CARD, Tipo de montaje: Pegado, Superficie útil: 27 x 18 mm  PLANTILLA ETIQUETAS PARA BOTONERIA 21 pzas. Por hoja"
+  },
+  "1005266": {
+    "descripcion": "Marcador de plástico para cables, sin cinta, rotulación con tiras de rotulación ESL..., EST... u hoja grande ES/LP-BW-GB, fijación con brida WT, superficie útil: 29 x 8 mm"
+  },
+  "828732": {
+    "descripcion": "Marcador para bornes,UCT-TM 4 Estera, blanco, sin rotular, rotulable con: THERMOMARK CARD PLUS, THERMOMARK CARD, BLUEMARK CLED, BLUEMARK LED, Tipo de montaje: Encajar en ranura para índice alta, para ancho de borne: 4,2 mm, Superficie útil: 3,6 x 10,5 mm  para UT 2.5 con 84 por lamina"
+  },
+  "828778": {
+    "descripcion": "Rótulo para encajar, US EMP  Tarjeta, blanco, sin rotular, rotulable con: THERMOMARK CARD PLUS, THERMOMARK CARD, Tipo de montaje: Encajar en soporte para señalización, Superficie útil: 27 x 18 mm  21 por hoja"
+  },
+  "827448": {
+    "descripcion": "Soporte para señalización, CARRIER-EMP 22, negro, sin rotular, Tipo de montaje: Tornillos, remaches, Diámetro: 22 mm, Superficie útil: 27 x 18 mm  pza"
+  },
+  "829536": {
+    "descripcion": "Protección contra contactos accidentales, EMPPR Codo, transparente, sin rotular, Tipo de montaje: Encajar en soporte para señalización, Superficie útil: 27 x 18 mm"
+  },
+  "801733": {
+    "descripcion": "Riel DIN , material: acero galvanizado y pasivado de capa gruesa, perforado, altura 7,5 mm, anchura 35 mm, longitud: 2000 mm precio por metro"
+  },
+  "3240197": {
+    "descripcion": "Canaleta de cableado, gris, compuesta por parte superior e inferior, ancho: 25 mm, altura: 80 mm, longitud 2.000 mm"
+  },
+  "3240198": {
+    "descripcion": "Canaleta de cableado, gris, compuesta por parte superior e inferior, ancho: 40 mm, altura: 80 mm, longitud 2.000 mm"
+  },
+  "3240199": {
+    "descripcion": "Canaleta de cableado, gris, compuesta por parte superior e inferior, ancho: 60 mm, altura: 80 mm, longitud 2.000 mm"
+  },
+  "3240200": {
+    "descripcion": "Canaleta de cableado, gris, compuesta por parte superior e inferior, ancho: 80 mm, altura: 80 mm, longitud 2.000 mm"
+  },
+  "3200043": {
+    "descripcion": "Punteras calibre 16 AI 1,5 - 8 BK \nPuntera, Longitud: 14 mm, Color: negro    en paquetes de 100 costo unitario"
+  },
+  "3200014": {
+    "descripcion": "Punteras calibre 22 , AI 0,5 - 8 WH Puntera, Longitud: 14 mm, Color: blanco  en paquetes de 100 costo unitario"
+  },
+  "3200535": {
+    "descripcion": "Punteras calibre 12 AI 4 -10 GY \nPuntera, Longitud: 17 mm, Color: gris  en paquetes de 100 costo unitario"
+  },
+  "2900509": {
+    "descripcion": "Relé de seguridad para control de parada de emergencia y puerta de protección hasta SIL 3 o cat. 4, PL e según EN ISO 13849, monocanal o bicanal, 3 circuitos de disparo, tensión nominal de entrada 24 V AC/DC, bornes de tornillo enchufables   Sustituto (750103) sin expansion"
+  },
+  "2900525": {
+    "descripcion": "Relé de seguridad para control de parada de emergencia y puerta de protección hasta SIL 3 o cat. 4, PL e según EN ISO 13849, monocanal o bicanal, 2 circuitos de disparo, tensión nominal de entrada 24 V AC/DC, bornes de tornillo enchufables sustituto (750104) sin expansion"
+  },
+  "2963721": {
+    "descripcion": "Relé de seguridad para dispositivos de mando a dos manos según EN 574 tipo IIIC hasta SIL 3 o cat. 4, PL e según EN ISO 13849, control de simultaneidad < 0,5 s, 2 contactos abiertos, 1 contacto cerrado, separación segura, bornes de tornillo enchufables, ancho: 22,5 mm"
+  },
+  "2963734": {
+    "descripcion": "Ampliación de contactos monocanal o bicanal, 5 contactos abiertos, 1 contacto cerrado, 1 circuito acuse recibo, junto a equipo base separación segura hasta cat. 4 PL e según EN ISO 13849, bornes enchufables, ancho: 35 mm  (extension cableada)"
+  },
+  "2981486": {
+    "descripcion": "Relé de seguridad para interruptor de parada de emergencia, interruptor de la puerta de seguridad e interruptor magnético, así como la rejilla fotoeléctrica, hasta SIL 3 o cat. 4, PL e según EN ISO 13849. 2 contactos abiertos, interfaz TBUS, activación automática o manual, bornes de conexión por tornillo enchufables"
+  },
+  "2981677": {
+    "descripcion": "Ampliación de contactos monocanal con interfaz TBUS, 4 contactos abiertos, 1 contacto cerrado, 1 circuito acuse recibo, sin retardo, según cat. 4, PL e según EN ISO 13849, bornes de tornillo enchufables, ancho: 22,5 mm"
+  },
+  "1681101": {
+    "descripcion": "Conector, 4-polos, Conector macho acodado M12, codificado A, Conexión por tornillo, Diámetro exterior del cable 4 mm ... 6 mm"
+  },
+  "1501252": {
+    "descripcion": "Conector, 3-polos, Conector macho par M8, codificado A, Conexión por tornillo,Diámetro exterior del cable 3,5 mm ... 5 mm"
+  },
+  "1506891": {
+    "descripcion": "Conector, 4-polos, Hembra de conexión par M8, codificado A, Conexión por tornillo, Diámetro exterior del cable 3,5 mm ... 5 mm"
+  },
+  "1501265": {
+    "descripcion": "Conector, 4-polos, Conector macho par M8, codificado A, Conexión por tornillo,  Diámetro exterior del cable 3,5 mm ... 5 mm"
+  },
+  "1543223": {
+    "descripcion": "Conector para sistema de bus, Ethernet CAT5 (100 MBit/s), 4-polos, apantallado, Conector macho par M12, codificado D, Diámetro exterior del cable 4 mm ... 8 mm"
+  },
+  "1203149": {
+    "descripcion": "Llave de armario de distribución, metálica, para todos los armarios de usuales"
+  },
+  "2963860 se sustituye por 0804155": {
+    "descripcion": "Toma de corriente de armario de control para montaje en carril simétrico y en interfaz de servicio, con indicación luminosa, con conexión por tornillo, anchura  45 mm"
+  },
+  "2864532 se sustituye por 1145217": {
+    "descripcion": "Convertidor de temperatura de cabecera MCR, programable, seguridad intrínseca, para termoresistencias, termopares, potenciómetros de control y transmisores de tensión. Para termoresistencias Pt 100"
+  },
+  "2867296": {
+    "descripcion": "Transceptor de radiotelefonía (emisor y receptor) con interfaz RS-232, RS-485/RS-422 y pie de bus, para la banda 900 MHz ISM"
+  },
+  "2966032": {
+    "descripcion": "Borne de base PLC de 6,2 mm con conexión por tornillo, sin equipamiento de relé o relé de estado sólido, para montar sobre carril NS 35/7,5, 1 contacto conmutado, tensión de entrada 120 V AC/DC"
+  },
+  "2700139": {
+    "descripcion": "Elemento de sirena, alterno, 24 V DC, máx. 105 dB(A), negro"
+  },
+  "2810939 se sustituye por 2811446": {
+    "descripcion": "Amplificador de separación de 3 vías MCR, con entrada/salida configurables, para la separación galvánica de señales analógicas, sin configurar"
+  },
+  "1212160": {
+    "descripcion": "Pelacables para desguarnecer cables de fibra de vidrio, lWIREFOX-D 11íneas de mando y conductores de señales multifilares, de 2,5-11 mm de Ø. Grosor de aislamiento de hasta 1 mm"
+  },
+  "444019": {
+    "descripcion": "Borne de tierra para carril, Tipo de conexión: Conexión por tornillo, Nº de polos: 1, Anchura: 15,2 mm, Color: amarillo-verde"
+  },
+  "2864273": {
+    "descripcion": "Convertidor de temperatura MCR para sensores de temperatura Pt 100, configurable a través de interruptor DIP, con conexión por tornillo, sin preconfigurar"
+  },
+  "2865007": {
+    "descripcion": "Amplificador de separación de 3 vías MCR, con entrada/salida configurable, para la separación galvánica y conversión de señales analógicas de hasta 30 V, con conexión por tornillo, configuración estándar"
+  },
+  "2263007": {
+    "descripcion": "Pie de fijación, para la fijación horizontal o vertical de los almacenes SKBI, sobre el carril NS 35/7,5"
+  },
+  "2868596": {
+    "descripcion": "Fuente de alimentación conmutada en primario STEP POWER para montaje sobre carril, entrada: monofásica, salida: 24 V DC/0,5 A"
+  },
+  "2861441": {
+    "descripcion": "Borne de derivación INTERBUS, completo con accesorios (conector y superficie de rotulación), con derivación de bus remoto, 24 V DC"
+  },
+  "2868635": {
+    "descripcion": "Fuente de alimentación conmutada en primario STEP POWER para montaje sobre carril, entrada: monofásica, salida: 24 V DC/0,75 A"
+  },
+  "2866226": {
+    "descripcion": "Fuente de alimentación ininterrumpida de 24 V DC/10 A, con módulo acumulador integrado de 1,3 Ah se sustituye por 2320267"
+  },
+  "2891152": {
+    "descripcion": "Switch Ethernet, 5 puertos TP-RJ45, detección automática de la velocidad de transmisión de datos de 10 ó 100 Mbits/s (RJ45), se sustituye por 1085039"
+  },
+  "3045208": {
+    "descripcion": "Borne de paso, Tipo de conexión: Conexión por tornillo, Sección: 0,2 mm² - 10 mm², AWG: 24 - 8, Anchura: 8,2 mm, Color: negro"
+  },
+  "1205040": {
+    "descripcion": "Destornillador, plano, aislamiento VDE, tamaño: 0,6 x 2,5 x 80 mm, empuñadura de 2, con protección anti desenrollado"
+  },
+  "2961105": {
+    "descripcion": "Relé de potencia en miniatura enchufable, con contacto de potencia, 1 contacto conmutado, tensión de entrada 24 V DC"
+  },
+  "2961341": {
+    "descripcion": "Relé de potencia en miniatura enchufable, con contacto de potencia para corrientes de cierre elevadas, 1 contacto de cierre, tensión de entrada 24 V DC"
+  },
+  "3045088": {
+    "descripcion": "Borne de paso, UT 2,5 BK  Tipo de conexión: Conexión por tornillo, Sección: 0,14 mm² - 4 mm² color: negro"
+  },
+  "1648306": {
+    "descripcion": "Inserto de hembras HEAVYCON, serie B24, 24 polos, conexión por tornillo"
+  },
+  "1648296": {
+    "descripcion": "Inserto de machos HEAVYCON, serie B24, 24 polos, conexión por tornillo"
+  },
+  "1460189": {
+    "descripcion": "Carcasa aérea HEAVYCON B24, para bloqueo longitudinal, altura de 65 mm, con 1 rosca M25, salida de cable recta se sustituye por 1412788"
+  },
+  "1771930": {
+    "descripcion": "Carcasa empotrada HEAVYCON B24, con bloqueo longitudinal, altura 29 mm, con junta plana se sustituye por 1411329"
+  },
+  "1771325": {
+    "descripcion": "Carcasa empotrada HEAVYCON B10, con bloqueo transversal, altura 29 mm, con junta plana se sustituye por 1411322"
+  },
+  "1412587": {
+    "descripcion": "Carcasa de acoplamiento B10, con brida longitudinal, material: Fundición inyectada de aluminio, resistente al agua de mar, salidas de cable: 1, recta, altura: 73 mm, prensaestopas: sin, tubuladura: no, 1x Pg16, Estándar"
+  },
+  "1771354": {
+    "descripcion": "Carcasa empotrada HEAVYCON B10, con bloqueo longitudinal, altura 29 mm, con tapa de plástico, con junta plana se sustituye por 1411321"
+  },
+  "1460344": {
+    "descripcion": "Carcasa aérea, para brida longitudinal, altura 43 mm .  Se sustituye por 1412572"
+  },
+  "2305279": {
+    "descripcion": "Cable redondo confeccionado, conector hembra  14 polos extremo libre. En el extremo libre, los conductores están rotulados del 1 al 14 y están provistos de punteras, 2 m"
+  },
+  "1522516": {
+    "descripcion": "Cable para sensores/actuadores, 8-polos, Conector macho par M12, a extremo de cable libre,5 m"
+  },
+  "1522642": {
+    "descripcion": "Cable para sensores/actuadores, 8-polos,  extremo de cable libre, a Hembra de conexión acodado M12,  5 m"
+  },
+  "1681648": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Conector macho par M12, a Hembra de conexión acodado M12, 1,5 m"
+  },
+  "1669819": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Conector macho acodado M12, a extremo de cable libre,  5 m"
+  },
+  "1681020": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, extremo de cable libre, a Hembra de conexión acodado M12,  con 3 LED, 10 m"
+  },
+  "1668386": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, Conector macho par M12,a Hembra de conexión par M12, 3 m"
+  },
+  "1671072": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, extremo de cable libre, a Hembra de conexión acodado M8, con 2 LED, 3 m"
+  },
+  "1694826": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, extremo de cable libre, a Hembra de conexión par M12, con 2 LED,5 m"
+  },
+  "1668302": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, extremo de cable libre, a Hembra de conexión acodado M12,  con 3 LED,  5 m"
+  },
+  "1681130": {
+    "descripcion": "Conector, 4-polos, Hembra de conexión acodado M12, cable 4 mm ... 6 mm"
+  },
+  "1669725": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, extremo libre, a Hembra de conexión par M8, 3 m"
+  },
+  "1668506": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, Conector macho par M12 a Hembra de conexión acodado M12,  3 m"
+  },
+  "1681619": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Conector macho par M12 a Hembra de conexión par M12, 3 m"
+  },
+  "1668810": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, Conector macho par M12 a Hembra de conexión par M8, 1,5 m"
+  },
+  "1668069": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos, Conector macho par M12, extremo de cable libre, 5 m"
+  },
+  "1683594": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, extremo de cable libre, a Hembra de conexión acodado M8, con 2 LED,  10 m"
+  },
+  "1694415": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, extremo de cable libre, a Hembra de conexión acodado M12,  con 2 LED, 5 m"
+  },
+  "1669783": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Conector macho par M12, a extremo de cable libre,5 m"
+  },
+  "1681923": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, Conector macho par M8, a Hembra de conexión par M8,1,5 m"
+  },
+  "3030271": {
+    "descripcion": "Puente enchufable, Longitud: 23 mm, Anchura: 60,3 mm, Número de polos: 10, Color: rojo"
+  },
+  "3030161": {
+    "descripcion": "PUENTE 2 POLOS CLEMA UT 2,5 /  Longitud: 22,7 mm, Anchura: 9 mm, 2 polos: , Color: rojo"
+  },
+  "3030174": {
+    "descripcion": "PUENTE 3 POLOS CLEMA UT 2,5 Longitud: 22,7 mm, Anchura: 14,2 mm, 3polos:  Color: rojo"
+  },
+  "3030187": {
+    "descripcion": "PUENTE 4 POLOS CLEMA UT 2,5/  Longitud: 22,7 mm, Anchura: 19,4 mm, Número de polos: 4, Color: rojo"
+  },
+  "3030190": {
+    "descripcion": "PUENTE 5 POLOS CLEMA UT 2,5 /Longitud: 22,7 mm, Anchura: 24,6 mm, 5 polos, Color: rojo"
+  },
+  "3030213": {
+    "descripcion": "PUENTE 10 POLOS CLEMA UT 2,5/ Longitud: 22,7 mm, Anchura: 50,6 mm, 10 polos, Color: rojo"
+  },
+  "3030226": {
+    "descripcion": "PUENTE 20 POLOS CLEMA UT 2,5  Color: rojo"
+  },
+  "3030336": {
+    "descripcion": "PUENTE 2 POLOS CLEMA UT 4 / Longitud: 23 mm, Anchura: 10,7 mm, Color: rojo"
+  },
+  "3030242": {
+    "descripcion": "PUENTE 3 POLOS CLEMA UT 4 /Longitud: 23 mm, Anchura: 16,9 mm, Número de polos: 3, Color: rojo"
+  },
+  "3030255": {
+    "descripcion": "PUENTE 3 POLOS CLEMA UT 4 / Longitud: 23 mm, Anchura: 23,1 mm, Color: rojo"
+  },
+  "3030349": {
+    "descripcion": "PUENTE 5 POLOS CLEMA UT 4 /  Longitud: 23 mm, Anchura: 29,3 mm, Color: rojo"
+  },
+  "3030365": {
+    "descripcion": "PUENTE 20 POLOS CLEMA UT 4 /Longitud: 23 mm, Anchura: 122,3 mm, Color: rojo"
+  },
+  "3030284": {
+    "descripcion": "PUENTE 2 POLOS CLEMA UT 6/ Longitud: 29,6 mm, Anchura: 14,7 mm, Color: rojo"
+  },
+  "3030297": {
+    "descripcion": "PUENTE 3 POLOS CLEMA UT 6 /Puente enchufable, Color: rojo"
+  },
+  "3030307": {
+    "descripcion": "PUENTE 4 POLOS CLEMA UT 6/ Color: rojo"
+  },
+  "3030310": {
+    "descripcion": "PUENTE 5 POLOS CLEMA UT 6 /Color: rojo"
+  },
+  "3005947": {
+    "descripcion": "PUENTE 2 POLOS CLEMA UT 10/ Color: rojo"
+  },
+  "1201730": {
+    "descripcion": "Carril simétrico, material: acero galvanizado y pasivado de capa gruesa, perforado, altura 15 mm, anchura 35 mm, longitud: 2000 mm"
+  },
+  "1401695": {
+    "descripcion": "Carril simétrico, material: Acero, sin perforar, altura 5,5 mm, anchura 15 mm, longitud: 2 m"
+  },
+  "3240283": {
+    "descripcion": "Canaleta de cableado, gris, compuesta por parte superior e inferior, ancho: 30 mm, altura: 100 mm, longitud 2.000 mm"
+  },
+  "2866064": {
+    "descripcion": "Relé de supervisión para la supervisión de tensiones de 3 fases de 280...520 V AC, subtensión, Window, secuencia de fases, fallo de fases, asimetría, fuente de alimentación de largo alcance, 2 contactos conmutados"
+  },
+  "2814841": {
+    "descripcion": "Separador pasivo MCR, para la separación galvánica de señales de corriente sin energía auxiliar, señal de entrada: 0(4) ... 20 mA, señal de salida: 0(4) ... 20 mA  se sustituye por 2907704"
+  },
+  "1460060": {
+    "descripcion": "Carcasa aérea HEAVYCON B10 para bloqueo transversal, altura 56 mm, con prensaestopas 1x Pg16, salida de cable recta, se sustituye por 1412622"
+  },
+  "2322184": {
+    "descripcion": "Módulo VARIOFACE, con conexión por tornillo y conector macho en miniatura D-SUB, para el montaje sobre carriles simétricos NS 35, con LED, número de polos: 50"
+  },
+  "803931": {
+    "descripcion": "ETIQUETA PARA MARCADOR DE CABLES"
+  },
+  "801371": {
+    "descripcion": "CINTA ENTINTADA, TERMOMARK RIBBON"
+  },
+  "1019972": {
+    "descripcion": "TMC 71C 01A Interruptor termomagnetico 1 polo 1A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019973": {
+    "descripcion": "TMC 71C 02A Interruptor termomagnetico 1 polo 2A curva C(transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019974": {
+    "descripcion": "TMC 71C 03A Interruptor termomagnetico 1 polo 3A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019975": {
+    "descripcion": "TMC 71C 04A Interruptor termomagnetico 1 polo 4A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019976": {
+    "descripcion": "TMC 71C 05A Interruptor termomagnetico 1 polo 5A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019977": {
+    "descripcion": "TMC 71C 06A Interruptor temomagnetico 1 polo 6A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019978": {
+    "descripcion": "TMC 71C 07A Interruptor termomagnetico 1 polo 7A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019979": {
+    "descripcion": "TMC 71C 08A Interruptor termomagnetico 1 polo 8A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019980": {
+    "descripcion": "TMC 71C 10A Interruptor termomagentico 1 polo 10A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019983": {
+    "descripcion": "TMC 71C 15A Interruptor termomagnetico 1 polo 15A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019985": {
+    "descripcion": "TMC 71C 20A Interruptor termomagnetico 1 polo 20A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019987": {
+    "descripcion": "TMC 71C 30A Interruptor termomagnetico 1 polo 30A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019994": {
+    "descripcion": "TMC 72C 01A Interruptor termomagnetico 2 polos 1A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019995": {
+    "descripcion": "TMC 72C 02A Interruptor termomagnetico 2 polos 2A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019996": {
+    "descripcion": "TMC 72C 03A Interruptor termomagnetico 2 polos 3A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019997": {
+    "descripcion": "TMC 72C 04A Interruptor termomagnetico 2 polos 4A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019998": {
+    "descripcion": "TMC 72C 05A Interruptor termomagnetico 2 polos 5A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1019999": {
+    "descripcion": "TMC 72C 06A Interruptor termomagnetico 2 polos 6A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020000": {
+    "descripcion": "TMC 72C 07A Interruptor termomagnetico 2 polos 7A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020001": {
+    "descripcion": "TMC 72C 08A Interruptor termomagnetico 2 polos 8A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020002": {
+    "descripcion": "TMC 72C 10A Interruptor termomagnetico 2 polos 10A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020005": {
+    "descripcion": "TMC 72C 15A Interruprtor termomagnetico 2 polos 15A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020007": {
+    "descripcion": "TMC 72C 20A Interruptor termomagnetico 2 polos 20A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020009": {
+    "descripcion": "TMC 72C 30A Interruptor termomagnetico 2 polos 30A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020011": {
+    "descripcion": "TMC 72C 40A Interruptor termomagnetico 2 polos 40A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020016": {
+    "descripcion": "TMC 73C 02A Interruptor temomagnetico 3 polos 2A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020017": {
+    "descripcion": "TMC 73C 03A Interruptor termomagnetico 3 polos 3A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020023": {
+    "descripcion": "TMC 73C 10A Interruptor temomagnetico 3 polos 10A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020024": {
+    "descripcion": "TMC 73C 12A Interruptor termomagnetico 3 polos 12A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020027": {
+    "descripcion": "TMC 73C 16A Interruptor termomagnetico 3 polos 16A cruva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020029": {
+    "descripcion": "TMC 73C 25A Interruptor termomagnetico 3 polos 25A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "1020031": {
+    "descripcion": "TMC 73C 32A Interruptor termomagnetico 3 polos 32A curva C (transformadores pequeños, iluminación, Dispositivos piloto, bobinas y circuitos de control)"
+  },
+  "2905339": {
+    "descripcion": "VAL-SEC-T2-3C-350-FM - Descargador de sobretensiones modelo 2 Descargador de sobretensiones enchufable según el tipo 2/clase II, para redes de alimentación de corriente trifásicas con tendido de PE y N combinados en un conductor (sistema de 4 conductores: L1, L2, L3, PEN), con contacto de indicación remota."
+  },
+  "2907918": {
+    "descripcion": "PLT-SEC-T3-120-FM-UT - Disp. de protec. contra sobretensiones tipo 3 Protección contra sobretensiones de tipo 2/3, formada por protección enchufable y elemento de base, con indicador de estado e indicación remota integrados para redes de fuente de alimentación monofásicas. Tensión nominal: 120 V AC/DC"
+  },
+  "2901541": {
+    "descripcion": "Radioline: transceptor de radio de 2,4 GHz con interfaz RS-232/485, ampliable con módulos de E/S, conexión de antena RSMA (hembra), redes punto a punto, en estrella y enmalladas hasta 250 estaciones, alcance hasta 5 km (con buena visibilidad), uso en todo el mundo"
+  },
+  "2281665": {
+    "descripcion": "Módulo VARIOFACE, con conexión por tornillo y conector macho subminiatura D, para montaje sobre NS 35/7,5 o NS 32, con indicación luminosa, número de polos 50  . ULTIMAS EXISTENCIAS, se sustituye por 2322184"
+  },
+  "2905491": {
+    "descripcion": "Relé enchufable de estado sólido de potencia, con indicador luminoso y circuito de protección en circuito de entrada y salida, entrada: 24 V DC, salida: 3-30 V DC/máx. 5 A, enchufable a bloques de bornes de base"
+  },
+  "3001705": {
+    "descripcion": "Borne de tierra para carril, Sección:  0,14 mm² - 1,5 mm², AWG: 26 - 16, Tipo de conexión: Conexión por tornillo, Anchura: 4,2 mm, Color: amarillo-verde"
+  },
+  "2810780": {
+    "descripcion": "Amplificador de separación de 3 vías MCR, con entrada/salida configurable, para la separación galvánica y conversión de señales analógicas en el margen mV, tanto unipolar como bipolar con conexión por tornillo, sin preconfigurar"
+  },
+  "2958325": {
+    "descripcion": "Relé electrónico de control UM, OBSOLETO , ULTIMAS EXISTENCIAS, se sustituye por 2866064"
+  },
+  "2281652": {
+    "descripcion": "Módulo VARIOFACE, con conexión por tornillo y conector macho subminiatura D, para montaje sobre NS 35/7,5 o NS 32, con indicación luminosa, número de polos 37, ULTIMAS EXISTENCIAS, se sustituye por 2322171"
+  },
+  "2769585": {
+    "descripcion": "Separador pasivo MCR, OBSOLETO ULTIMAS EXISTENCIAS, se sustituye por 2901994"
+  },
+  "2315272": {
+    "descripcion": "Módulo VARIOFACE con dos barras colectoras (P1, P2) para distribución de potencial, para el montaje sobre carriles simétricos NS 35. Anchura del módulo: 90,8 mm"
+  },
+  "2315256": {
+    "descripcion": "Módulo VARIOFACE con dos barras colectoras (P1, P2) para distribución de potencial, para el montaje sobre carriles simétricos NS 35. Anchura del módulo: 50,0 mm"
+  },
+  "2967662": {
+    "descripcion": "Módulos de relés, PLC-INTERFACE, compuesto de borne de base PLC-BSC.../21 con conexión por tornillo y relé en miniatura enchufable para corrientes constantes elevadas"
+  },
+  "3100062": {
+    "descripcion": "Bornes para termopares, EE.UU. tipo K, Tipo de conexión: Conexión por tornillo, Nº de polos: 1, Sección: 0,2 mm² - 4 mm², AWG: 24 - 12, Anchura: 10,4 mm, Color: gris,"
+  },
+  "0444019": {
+    "descripcion": "Borne de tierra para carril, tipo de conexión: Conexión por tornillo, número de conexiones: 2, sección:0,75 mm² - 50 mm², AWG: 18 - 1/0, anchura: 15,2 mm, color: amarillo-verde, clase de montaje: NS 35/7,5, NS 35/15, NS 32"
+  },
+  "3100318": {
+    "descripcion": "Borne de tierra para carril, Tipo de conexión: Conexión por tornillo, Anchura: 4,2 mm, Color: amarillo-verde"
+  },
+  "2715966": {
+    "descripcion": "Borne para detectores/actuadores, tipo de conexión: Conexión por tornillo, sección: 0,2 mm² - 4 mm², AWG: 24 - 12, anchura: 6,2 mm, color: gris, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "2715995": {
+    "descripcion": "Borne para detectores/actuadores, Sección:  0,2 mm² - 4 mm², AWG: 24 - 12, Tipo de conexión: Conexión por tornillo, Anchura: 6,2 mm, Color: gris,"
+  },
+  "1688366": {
+    "descripcion": "Marco empotrado D-SUB, tamaño de envoltura 1, grado de protección IP67"
+  },
+  "1887086": {
+    "descripcion": "Tapa protectora D-SUB, tamaño de envoltura 1, grado de protección IP54, para marco empotrado y carcasa aérea VS-09-..."
+  },
+  "2774211": {
+    "descripcion": "Borne de tierra para carril, tipo de conexión: Conexión por tornillo, sección: 0,2 mm² - 4 mm², AWG: 24 - 12, anchura: 6,2 mm, color: amarillo-verde, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "819398": {
+    "descripcion": "Marcador de cables, Estera, blanco, sin rotular, rotulable con: BLUEMARK ID COLOR, BLUEMARK ID, BLUEMARK CLED, PLOTMARK, CMS-P1-PLOTTER, clase de montaje: introducir, rango de diámetro de cable: 0,6 - 50 mm, superficie útil: 15 x 4 mm"
+  },
+  "2941374": {
+    "descripcion": "Terminal de relé de estado sólido de potencia, entrada: 24 V DC, salida: 3-30 V DC/3 A, ancho de borne 6,2 mm"
+  },
+  "828740": {
+    "descripcion": "Marcador para bornes, Estera, blanco, sin rotular, rotulable con: TOPMARK NEO, TOPMARK LASER, BLUEMARK ID COLOR, BLUEMARK ID, BLUEMARK CLED, THERMOMARK PRIME, THERMOMARK CARD 2.0, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 8,2 mm, superficie útil: 7,6 x 10,5 mm"
+  },
+  "828736": {
+    "descripcion": "Marcador para bornes, Estera, blanco, sin rotular, rotulable con: TOPMARK NEO, TOPMARK LASER, BLUEMARK ID COLOR, BLUEMARK ID, BLUEMARK CLED, THERMOMARK PRIME, THERMOMARK CARD 2.0, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 6,2 mm, superficie útil: 5,6 x 10,5 mm"
+  },
+  "818108": {
+    "descripcion": "Marcador para bornes, Estera, blanco, sin rotular, rotulable con: BLUEMARK ID COLOR, BLUEMARK ID, BLUEMARK CLED, PLOTMARK, CMS-P1-PLOTTER, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 5,2 mm, superficie útil: 10,5 x 4,6 mm"
+  },
+  "2798682": {
+    "descripcion": "Protección enchufable UAK con protección de aparatos contra sobretensiones para alimentaciones de corriente  ULTIMAS EXISTENCIAS"
+  },
+  "2748674": {
+    "descripcion": "Elemento de base para el alojamiento de protecciones enchufables contra sobretensiones UAK para alimentación monofásica, montaje sobre NS 32 y NS 35/7,5, anchura de la carcasa: 17,5 mm  , ULTIMAS EXISTENCIAS"
+  },
+  "3044157": {
+    "descripcion": "Clema tierra UT6"
+  },
+  "3044131": {
+    "descripcion": "Borne de paso, tensión nominal: 1000 V, corriente nominal: 41 A, tipo de conexión: Conexión por tornillo, número de conexiones: 2, sección:0,2 mm² - 10 mm², AWG: 24 - 8, anchura: 8,2 mm, altura: 46,9 mm, color: gris, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3204010": {
+    "descripcion": "QT 1,5 ARTICULO BORRADO DE LA PÁGINA"
+  },
+  "1680539": {
+    "descripcion": "Tornillo de cierre M12 para conectores hembra M12 no ocupados del cable para sensores/actuadores, cajas y conectores enchufables de montaje incorporado"
+  },
+  "0828806": {
+    "descripcion": "Rótulo de plástico, Tarjeta, blanco, sin rotular, rotulable con: BLUEMARK ID COLOR, BLUEMARK ID, THERMOMARK PRIME, THERMOMARK CARD 2.0, THERMOMARK CARD, clase de montaje: pegado, superficie útil: 85,6 x 54 mm"
+  },
+  "3062766": {
+    "descripcion": "Fusible, 10,3 mm x 85 mm, hasta 1500 V DC, característica gPV"
+  },
+  "0828772": {
+    "descripcion": "Marcador de cables, Tarjeta, blanco, sin rotular, rotulable con: THERMOMARK CARD PLUS, THERMOMARK CARD, Tipo de montaje: Ensartar, Diámetro de cable: >13 mm, Superficie útil: 29 x 8 mm PLANTILLA ETIQUETA PARA MULTICONDUCTORES  24 pzas. Por hoja"
+  },
+  "3031238": {
+    "descripcion": "Borne de tierra de conexión por resorte, Tipo de conexión: Conexión por resorte, Sección: 0,08 mm² - 4 mm², AWG: 28 - 12, Anchura: 5,2 mm, Color: amarillo-verde,"
+  },
+  "3000539": {
+    "descripcion": "Borne de carril para fusible, tipo de fusible: Vidrio/cerámica/..., número de polos: 1, tipo de conexión: Conexión por tornillo, sección: 0,2 mm²- 6 mm², AWG: 24 - 10, corriente nominal: 6,3 A, tensión nominal: 500 V, anchura: 8,2 mm, tipo de fusible: G/5 x 20, clase de montaje: NS 35/7,5, NS 35/15, NS 32, color: negro"
+  },
+  "2771010": {
+    "descripcion": "Borne de doble piso, Sección:  0,2 mm² - 4 mm², Conexión por tornillo, Anchura: 5,2 mm, Color: gris"
+  },
+  "3003923": {
+    "descripcion": "Borne de tierra para carril, tipo de conexión: Conexión por tornillo, número de conexiones: 2, sección:0,5 mm² - 16 mm², AWG: 20 - 6, anchura: 10,2 mm, altura: 45,8 mm, color: amarillo-verde, clase de montaje: NS 35/7,5, NS 35/15, NS 32"
+  },
+  "3104013": {
+    "descripcion": "Borne interrumpible por cuchilla, con hembras roscadas para tomas de prueba para alojar clavijas de prueba"
+  },
+  "3044089": {
+    "descripcion": "Borne de paso, tensión nominal: 1000 V, corriente nominal: 24 A, tipo de conexión: Conexión por tornillo, número de conexiones: 2, sección:0,14 mm² - 4 mm², AWG: 26 - 12, anchura: 5,2 mm, altura: 46,9 mm, color: azul, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "1013025": {
+    "descripcion": "Soporte para señalización de conductores, transparente, sin rotular, clase de montaje: prolongar, rango de diámetro de cable: 1,5 - 2,5 mm, superficie útil: 15 x 4 mm"
+  },
+  "5600573": {
+    "descripcion": "INTERFACE PARA PC (120VAC Y RJ45)"
+  },
+  "1460063": {
+    "descripcion": "Carcasa aérea HEAVYCON B10, para bloqueo transversal, altura 56 mm, con 1 tubuladura Pg16, salida de cable recta, se sustituye por 1412622"
+  },
+  "1013795": {
+    "descripcion": "Soporte para señalización de conductores, transparente, sin rotular, clase de montaje: prolongar, rango de diámetro de cable: 0,6 - 1,2 mm, superficie útil: 10 x 4 mm"
+  },
+  "1692776": {
+    "descripcion": "Caja de sensores/actuadores, Aplicación: Estándar, Tipo de conexión: Conector hembra M12"
+  },
+  "1692857 se sustituye por 1452741": {
+    "descripcion": "Caja de sensores/actuadores, tipo de conexión: Conector hembra M12 Plástico, número de puestos enchufables: 4, número de polos: 4, codificación: A - estándar, ocupación de los puestos enchufables: simple, indicación de estado: No, Universal; conexión de cable principal: Conexión por tornillo enchufable 180°, apantallamiento: no  ULTIMAS EXISTENCIAS, se sustituye por 1452741"
+  },
+  "1681622": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, Conector macho par M12, a Hembra de conexión acodado M12, 0,3 m"
+  },
+  "1554872": {
+    "descripcion": "Cable M12 recto Hembra 12 polos 5 mts Extremo libre"
+  },
+  "1668373": {
+    "descripcion": "Cable para sensores/actuadores, 4-polos,Conector macho par M12, codificado A, a Hembra de conexión par M12, 1,5 m"
+  },
+  "1681606": {
+    "descripcion": "Cable para sensores/actuadores, 5-polos, PUR sin halógenos, negro grisáceo RAL 7021, Conector macho recto M12, codificado A, a Hembra de conexión recto M12, codificado A, longitud de cable: 1,5 m"
+  },
+  "1681981": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, Conector macho par M8, a Hembra de conexión acodado M8, con 2 LED, 0,3 m"
+  },
+  "1668959": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, PUR sin halógenos, negro grisáceo RAL 7021, Conector macho recto M12, codificado A, a Hembra de conexión recto M12, codificado A, PIN 2+4 puenteado y Hembra de conexión recto M12, codificado A, PIN 2+4 puenteado, longitud de cable: 0,3 m"
+  },
+  "1668153": {
+    "descripcion": "Cable para sensores/actuadores, 3-polos, Conector macho acodado M12, codificado A, a extremo de cable libre, 5 m"
+  },
+  "1772528 se sustituye por 1584431": {
+    "descripcion": "Inserto de contactos, número de polos: 64+PE, tamaño: D64, Pin, Conexión engastada, 250 V, 10 A, 0,14 mm² ... 2,5 mm²  ULTIMAS EXISTENCIAS"
+  },
+  "1771011 se sustituye por 1648128": {
+    "descripcion": "Inserto de hembras HEAVYCON, serie B6, 6 polos, conexión por tornillo"
+  },
+  "1771338 se sustituye por 1411320": {
+    "descripcion": "Carcasa empotrada HEAVYCON B10, con bloqueo longitudinal, altura 29 mm, con junta plana"
+  },
+  "1771257 se sustituye por 1412622": {
+    "descripcion": "Carcasa aérea, para brida transversal, altura 45 mm,  ULTIMAS EXISTENCIAS"
+  },
+  "1771202 se sustituye por 1648186": {
+    "descripcion": "Inserto de hembras HEAVYCON, serie B10, 10 polos, conexión por tornillo . ÚLTIMAS EXISTENCIAS"
+  },
+  "1684014": {
+    "descripcion": "Hembra de conexión M23, recta, de 12 polos, con cable principal de 5 m, Pin 9 y 10 ligados"
+  },
+  "1457908": {
+    "descripcion": "Conector de válvula, 5-polos, Conector de válvula AD (presostato), con 2 LED, Conexión por tornillo, prensaestopas M16, diámetro exterior del cable 6 mm ... 8 mm"
+  },
+  "1662298": {
+    "descripcion": "Conector para sensores/actuadores, hembra, recto, 5 polos, M12"
+  },
+  "1662968": {
+    "descripcion": "Conector Confeccionable M12 Recto Hembra de 5 polos a tornillo"
+  },
+  "1652716": {
+    "descripcion": "Inserto de machos RJ45, CAT5e, de 8 polos, apantallado, técnica de conexión IDC, para hilo AWG 27 ... 26, con compensador de tracción"
+  },
+  "1654756": {
+    "descripcion": "Capuchón de protección contra doblado RJ45, para inserto de machos VS-08-ST-H11-RJ45 y VS-08-ST-H21-RJ45, para diámetros de cable de hasta 7 mm, color: Verde"
+  },
+  "1521452": {
+    "descripcion": "Conexión enchufable montaje incorp. p. sensores/actuadores, 5 polos, 7/8\", pared delantera c. rosca Pg13,5, c. hilo trenz. PVC 0,5 m, 5 x 0,75 mm²"
+  },
+  "1521384": {
+    "descripcion": "Conector, 5-polos, Hembra de conexión recto 7/8\"-16UNF, Conexión por tornillo, material de moleteado: Fundición inyectada de cinc, niquelada, prensaestopas Pg9, diámetro exterior del cable 6 mm ... 8 mm"
+  },
+  "1684247": {
+    "descripcion": "Sensor Cables / Actuator Cables KGGK ULTIMAS  EXISTENCIAS"
+  },
+  "1664306": {
+    "descripcion": "CARCAZA EMPOTRADA CON TUERCA AISZ ARRICULO BORRADO DE LA PÁGINA"
+  },
+  "2288914": {
+    "descripcion": "Cable redondo confeccionado, con dos conectores hembra de 14 polos (conexión 1:1), entre otras cosas para la interconexión de 8 canales,1 m"
+  },
+  "2293446": {
+    "descripcion": "Adaptador frontal VARIOFACE, conexión de 1 x 16 canales para Allen-Bradley SLC 500, 1746 OA16 y OW16"
+  },
+  "1681305": {
+    "descripcion": "CON.DIN 3P C/LED A 100/120 VAC/DC  ARTICULO BORRADO DE LA PÁGINA"
+  },
+  "1527993": {
+    "descripcion": "Conector DIN, 3-polos, Conector de válvula Bl (11 mm), Conexión por tornillo, prensaestopas Pg9, diámetro exterior del cable 6 mm ... 8 mm"
+  },
+  "2305376": {
+    "descripcion": "Cable redondo confeccionado, con un conector hembra de 50 polos y extremo libre. En el extremo libre, los conductores están rotulados del 1 al 50 y están provistos de punteras,2 m"
+  },
+  "1452204": {
+    "descripcion": "Conector DIN, 3-polos, Conector de válvula B (10 mm), con 1 LED, conectado con Varistor, Conexión por tornillo, prensaestopas M16, diámetro exterior del cable 6 mm ... 8 mm"
+  },
+  "1419001": {
+    "descripcion": "Conector enchufable RJ45, IP20, CAT6A, 8 polos, con técnica de conexión rápida QUICKON, para conductores de 1 hilo y 7 hilos AWG 26 ... 24, color: negro"
+  },
+  "3044555": {
+    "descripcion": "Borne de paso, tensión nominal: 500 V, corriente nominal: 24 A, tipo de conexión: Conexión por tornillo, número de conexiones: 4, sección:0,14 mm² - 4 mm², AWG: 26 - 12, anchura: 5,2 mm, altura: 46,9 mm, color: azul, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3044568": {
+    "descripcion": "Borne de tierra para carril, tipo de conexión: Conexión por tornillo, número de conexiones: 4, sección:0,14 mm² - 4 mm², AWG: 26 - 12, anchura: 5,2 mm, altura: 46,9 mm, color: amarillo-verde, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "3044649": {
+    "descripcion": "Borne de doble piso, tipo de conexión: Conexión por tornillo, sección: 0,14 mm² - 4 mm², AWG: 26 - 12, anchura: 5,2 mm, color: azul, clase de montaje: NS 35/7,5, NS 35/15"
+  },
+  "2816399": {
+    "descripcion": "Protección enchufable contra sobretensiones tipo 2 con varistor de alta potencia para elemento de base VAL-MS, con control térmico, indicación óptica de defecto. Ejecución: 400 V AC"
+  },
+  "2770215": {
+    "descripcion": "Placa separadora, longitud: 14 mm, anchura: 0,5 mm, altura: 16 mm, color: gris"
+  },
+  "913045": {
+    "descripcion": "Cartucho fusible, corriente nominal: 10 A, longitud: 36 mm, diámetro: 11 mm, color: rojo"
+  },
+  "1052002": {
+    "descripcion": "Tira Zack, Tiras, blanco, sin rotular, rotulable con: CMS-P1-PLOTTER, PLOTMARK, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 8,2 mm, superficie útil: 10,5 x 8,15 mm"
+  },
+  "1844278": {
+    "descripcion": "Carcasa base placa de circuito impreso, corriente nominal: 8 A, tensión de dimensionamiento (III/2): 160 V, número de polos: 8, paso: 3,5 mm, color: verde, superficie contactos: Estaño, montaje: Soldadura por ola"
+  },
+  "1004348": {
+    "descripcion": "Marcador de regletas de bornes, para la señalización de regletas, altura ajustable, emplear con los soportes finales E/UK, E/NS 35 N, o CLIPFIX 35, superficie útil: 44 x 7 mm"
+  },
+  "0712275": {
+    "descripcion": "Interruptor térmico enchufable sobre borne para fusible de conexión por tornillo UK 6-FSI/C y borne de resorte para fusible ST 4-FSI/C"
+  },
+  "0712123": {
+    "descripcion": "Interruptor térmico enchufable sobre borne para fusible de conexión por tornillo UK 6-FSI/C y borne de resorte para fusible ST 4-FSI/C"
+  },
+  "0712314": {
+    "descripcion": "Interruptor térmico enchufable sobre borne para fusible de conexión por tornillo UK 6-FSI/C y borne de resorte para fusible ST 4-FSI/C"
+  },
+  "0800433": {
+    "descripcion": "Manguito de identificación de conductores, amarillo, Longitudinal: Letras, clase de montaje: ensartar, rango de diámetro de cable: 1,4 - 2,5 mm, superficie útil: 3,2 x 2,6 mm"
+  },
+  "800420": {
+    "descripcion": "Manguito de identificación de conductores, amarillo, Longitudinal: Números, clase de montaje: ensartar, rango de diámetro de cable: 1,4 - 2,5 mm, superficie útil: 3,2 x 2,6 mm"
+  },
+  "0921037": {
+    "descripcion": "Cabeza portafusible, corriente nominal: 6,3 A, longitud: 33,1 mm, anchura: 6,1 mm, altura: 45,7 mm, color: negro"
+  },
+  "3030488": {
+    "descripcion": "Tapa final, longitud: 60,5 mm, anchura: 2,2 mm, altura: 29 mm, color: gris"
+  },
+  "3030417": {
+    "descripcion": "Tapa final, longitud: 48,6 mm, anchura: 2,2 mm, altura: 29,1 mm, color: gris"
+  },
+  "0203250": {
+    "descripcion": "Puente fijo, paso: 6 mm, número de polos: 10, color: plateado"
+  },
+  "3101029": {
+    "descripcion": "Tapa final, longitud: 46 mm, anchura: 1 mm, altura: 28,7 mm, color: gris"
+  },
+  "3002979": {
+    "descripcion": "Tapa final, longitud: 27,8 mm, anchura: 1 mm, altura: 24,3 mm, color: gris"
+  },
+  "3031762": {
+    "descripcion": "Tapa final, longitud: 51 mm, anchura: 2,2 mm, altura: 43 mm, color: gris"
+  },
+  "1413285": {
+    "descripcion": "Placa separadora, longitud: 83 mm, anchura: 2 mm, altura: 60 mm, color: gris"
+  },
+  "3003020": {
+    "descripcion": "Tapa final, longitud: 42,5 mm, anchura: 1,8 mm, altura: 35,9 mm, color: gris"
+  },
+  "3100321": {
+    "descripcion": "Tapa final, longitud: 22 mm, anchura: 1 mm, altura: 17,7 mm, color: gris"
+  },
+  "2802316": {
+    "descripcion": "Conector de componentes, para conexión de componentes bipolares en el borne de base, fijación con puntos de embornaje roscados, 19 mm de alto, máx. 16 A"
+  },
+  "3206034": {
+    "descripcion": "Tapa final, longitud: 72,5 mm, anchura: 2,2 mm, altura: 43,5 mm, color: gris"
+  },
+  "3030789": {
+    "descripcion": "Placa separadora, longitud: 75,2 mm, anchura: 2 mm, altura: 39 mm, color: gris"
+  },
+  "3030420": {
+    "descripcion": "Tapa final, longitud: 55,9 mm, anchura:                      2,2 mm, altura: 29 mm, color: gris"
+  },
+  "1050017": {
+    "descripcion": "Tira Zack, Tiras, blanco, rotulado, rotulación longitudinal: Números correlativos de 1-10, 11-20 etc. hasta 491-500, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 5,2 mm, superficie útil: 5,15 x 10,5 mm"
+  },
+  "1050004": {
+    "descripcion": "Tira Zack, Tiras, blanco, sin rotular, rotulable con: PLOTMARK, CMS-P1-PLOTTER, clase de montaje: encajar en ranura para índice alta, para ancho de borne: 5,2 mm, superficie útil: 5,1 x 10,5 mm"
+  },
+  "1201594": {
+    "descripcion": "Soporte inclinado con tornillo M6, con tope hacia el carril, para la sujeción de los carriles en un ángulo de 30°, altura: 46 mm"
+  },
+  "1689080": {
+    "descripcion": "Marco empotrado RJ45, IP67, para insertos de hembras modulares (Keystone), para abertura de montaje rectangular, con junta, sin tornillos de fijación, color: Gris"
+  },
+  "3001624": {
+    "descripcion": "Puente fijo, paso: 4,2 mm, número de polos: 10, color: plateado"
+  },
+  "1201662": {
+    "descripcion": "Soporte final, para el apoyo de UKH 50 hasta UKH 240, se desliza sobre el carril NS 35 y se sujeta con 2 tornillos, anchura: 10 mm, color: Aluminio"
+  },
+  "3001022": {
+    "descripcion": "Tapa final, longitud: 42,5 mm, anchura: 1,5 mm, altura: 30,7 mm, color: gris"
+  },
+  "1689064": {
+    "descripcion": "Acoplamiento RJ45, índice de protection: IP20, número de polos: 8, 1 GBit/s, CAT5 (IEC 11801:2002), material: Fibra de vidrio, PBT, tipo de conexión: Hembra, Keystone"
+  },
+  "1689200": {
+    "descripcion": "Tapa protectora, IP67, ejecución alta"
+  },
+  "1421659": {
+    "descripcion": "Soporte final, anchura: 6 mm, color: Gris"
+  },
+  "2281665 se sustituye por 2322184": {
+    "descripcion": "Módulo VARIOFACE, con conexión por tornillo y conector macho subminiatura D, para montaje sobre NS 35/7,5 o NS 32, con indicación luminosa, número de polos 50  ,ULTIMAS EXISTENCIAS"
+  },
+  "1013740": {
+    "descripcion": "Soporte para señalización de conductores, transparente, sin rotular, Superficie útil: 4 x 15 mm"
+  }
+}
