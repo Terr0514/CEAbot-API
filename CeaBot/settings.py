@@ -38,7 +38,7 @@ SECRET_KEY = 'django-insecure-gb)b^_o_mg^cr%9b#wz-91nx@2ksd&mk)u2!z$c#yfd-qdzilk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ceabot-api.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definitionm
