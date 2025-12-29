@@ -19,11 +19,17 @@ from decouple import config
 API_KEY1 = config("API_KEY1")
 API_KEY2 = config("API_KEY2")
 API_KEY3 = config("API_KEY3")
+API_KEY4 = config("API_KEY4")
+ODOO_URL = config("ODOO_URL")
+ODOO_DB = config("ODOO_DB")
 #CORREOS 
 CEA_MAIL = config("CEA_MAIL")
 DEST_MAIL = config("DEST_MAIL")
+DEST_MAILMTY = config("DEST_MAILMTY")
+ODOO_USER = config("ODOO_USER")
 #Contrase;as 
 CEA_PASS = config("CEA_PASS")
+ODOO_PASSWORD = config("ODOO_PASSWORD")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

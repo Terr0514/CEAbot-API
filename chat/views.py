@@ -1,15 +1,3 @@
-
-from rest_framework.views import APIView
-from rest_framework.response import Response 
-from openai import OpenAI
-import re 
-import json
-import smtplib
-from email.message import EmailMessage
-from django.conf import settings
-import os
-import random
-
 '''
 Proyecto: CEAbot: asistente de ventas impulsado con inteligencia artificial
 Descripcion: Este proyecto es un chatbot, capaz de hacer consultas de datos 
@@ -21,151 +9,230 @@ tecnologias aplicadas:
 ->OPenRouter API
 ->OpenAi
 '''
+#Librerias de Django para API
+from rest_framework.views import APIView
+from rest_framework.response import Response 
+from django.conf import settings, traceback
+#Libreria de OPENAI
+from openai import OpenAI
+#Expresiones regulares
+import re 
+#Envio de correos
+import smtplib
+from email.message import EmailMessage
+
+import os
+import random
+import xmlrpc.client
+
 
 class CeaBot_API(APIView):
     #Constructor 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         #Variables Globales
+        #API KEYS
         self.apiKey1 = settings.API_KEY1
         self.apiKey2 = settings.API_KEY2
         self.apiKey3 = settings.API_KEY3
+        self.apiKey4 = settings.API_KEY4
+        #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
         self.model = "meta-llama/llama-3.3-70b-instruct:free"
         self.messages = []
         self.mail = EmailMessage()
+        #CREDENCIALES EMAIL
         self.myMail = settings.CEA_MAIL
         self.myPassword = settings.CEA_PASS
         self.destinationMail = settings.DEST_MAIL
-        self.productos = {} 
+        self.destinationMailMTY = settings.DEST_MAILMTY
+        #PARAMETROS ODOO
+        self.odooDB = settings.ODOO_DB
+        self.odooUser = settings.ODOO_USER
+        self.odooPass = settings.ODOO_PASSWORD
+        self.odooURL = settings.ODOO_URL
+        #Conexion con Odoo
+        try:
+            self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common')
+            self.uid = self.common.authenticate(self.odooDB, self.odooUser, self.odooPass, {})
+            self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object')
+        except Exception as e:
+            print(f'Error de conexion: {e}')
+    
         #Mensajes de contextualizacion 
-        self.messages = [ {"role": "system", "content": f"""
-Eres un chatbot de ventas llamado *CEA bot*, que trabaja para la empresa *CEA: Control y Elementos de Automatización*.
+        self.messages = [{
+    "role": "system",
+    "content": """
+Eres un chatbot de ventas llamado *CEA bot* y trabajas para la empresa
+*CEA: Control y Elementos de Automatización*.
 
-CEA se dedica a la venta de herramientas y componentes para automatización industtrial, incluyendo sensores, relevadores, PLCs, fuentes de poder, entre otros.
+CEA se dedica a la venta de componentes para automatización industrial,
+como sensores, relevadores, PLCs, fuentes de poder, cables industriales
+y equipos de redes industriales.
 
-Tu función es:
+Tu comportamiento debe ser profesional, claro y conciso.
 
-1. Proporcionar información sobre productos que el cliente está buscando (nombre o Numero de parte).
-2. Capturar numbre, numero de telefono y correo del cliente 
-3. Resolver dudas al cliente sobre temas de automatizacion industrial y redes
+Tus funciones principales son:
+1. Ayudar al cliente a buscar productos por nombre o número de parte (SKU).
+2. Dar formato a datos del cliente.
+3. Resolver dudas técnicas relacionadas exclusivamente con automatización industrial y redes industriales.
+"""
+}]
 
+        self.messages.append({
+    "role": "system",
+    "content": """
+TAREA #1: BÚSQUEDA DE PRODUCTOS
 
-"""}]
-        self.messages.append({"role": "system", "content": f"""
-Para cumplir la TAREA #1 (buscar productos):
+Después de saludar y presentarte como *CEA bot*, solicita al cliente
+el nombre del producto (en singular) o el número de parte (SKU).
 
-Después de un saludo y presentarte como CEA bot, pide al cliente el nombre del producto (en singular) o el número de SKU.
+⚠️ REGLA CRÍTICA:
+Cuando detectes uno o más SKUs, debes responder ÚNICAMENTE
+con el siguiente formato EXACTO, sin texto adicional, sin saludo
+y sin explicaciones.
 
-Luego, responde **ÚNICAMENTE** con uno de los siguientes formatos exactos, sin agregar explicaciones ni texto adicional:
+FORMATO OBLIGATORIO:
+BUSCAR_PRODUCTO: sku1, sku2, sku3
 
-- Si el cliente menciona un producto:  
-  BUSCAR_PRODUCTO: nombre_del_producto_en_singular
-  (Ejemplo: BUSCAR_PRODUCTO: abrazadera final)
-
-- Si el cliente menciona un SKU:  
-  BUSCAR_PRODUCTO: número_de_parte
-  (Ejemplo: BUSCAR_PRODUCTO: 1883390)
-"""})
-
-        self.messages.append({"role": "system", "content": f"""
-Ejemplo 1 (por nombre de producto):
-Si el cliente dice:  
-"Busco una abrazadera final",  
-"Tienes abrazaderas finales?",  
-"Busca en tu base de datos abrazaderas finales"  
-
-Tú debes responder:
-BUSCAR_PRODUCTO: abrazadera final (nombre del producto en singular)
-(Recuerda: usa siempre el nombre del producto en SINGULAR)
-"""})
-
-        self.messages.append({"role": "system", "content": f"""
-Ejemplo 2 (por Numero de Parte):
-Si el cliente dice:  
-"SKU: 1883390",  
-"Busco el artículo 1883390",  
-"¿Tienes disponible el 1883390?"  
-
-Tú debes responder:
+- Si es un solo producto:
 BUSCAR_PRODUCTO: 1883390
-"""})
-        self.messages.append({"role":"assistant", "content":f"""
-Para la TAREA #2: captura de datos del cliente.
 
-Despues de mostrar los productos consultados, es posible que el cliente desee hacer una cotizacion de los productos.
-Para ello, siempre despues de cada consulta, el sistema imprime en pantalla una solicitud para que el cliente ingrese los siguientes 
-datos:
+- Si son varios productos:
+BUSCAR_PRODUCTO: 1883390, 2A000004, 129028
+"""
+})
 
-1. Nombre Completo
-2. Correo Electronico
-3. numero de telefono 
-4. Ciudad de Residencia
-5. SKU o numero de parte del producto (o productos)                                                         
+        self.messages.append({
+    "role": "system",
+    "content": """
+EJEMPLOS — TAREA #1
 
-Por lo que una vez que hayas detectado que el cliente esta ingresando estos datos tu UNICAMENTE deberas 
-responder con el siguiente bloque de texto:
-                                                           
+Entrada del cliente:
+"SKU: 1883390"
+"Busco el artículo 1883390"
+"¿Tienes disponible el 1883390?"
+
+Respuesta correcta del bot:
+BUSCAR_PRODUCTO: 1883390
+"""
+})
+
+        self.messages.append({
+    "role": "system",
+    "content": """
+Entrada del cliente:
+"SKU: 1883390, 2A000004"
+"Busco los productos 129028, 2A000004 y 1883390"
+
+Respuesta correcta del bot:
+BUSCAR_PRODUCTO: 1883390, 2A000004
+BUSCAR_PRODUCTO: 129028, 2A000004, 1883390
+"""
+})
+        
+        self.messages.append({
+    "role": "system",
+    "content": """
+TAREA #2: CREACION DE FORMATO DE DATOS PARA COTIZACIÓN
+
+Después de mostrar la información de los productos,
+el sistema solicitará al cliente los siguientes datos:
+
+1. Nombre completo
+2. Correo electrónico
+3. Número de teléfono
+4. Ciudad de residencia
+5. Producto(s) y cantidad
+
+⚠️ Cuando detectes que el cliente está proporcionando estos datos,
+debes responder ÚNICAMENTE con el siguiente bloque de texto,
+respetando exactamente el formato y los nombres de los campos.
+NO agregues comentarios, saludos ni explicaciones.
+"""
+})
+        self.messages.append({
+    "role": "system",
+    "content": """
+FORMATO OBLIGATORIO:
+
 REGISTRO_CLIENTE:
-
 Nombre: nombre_del_cliente
 Correo Electronico: correo_del_cliente
-Numero de telefono: numero_de_telefono_del_cliente
-Ciudad de residencia: ciudad_de_residencia 
+Numero de telefono: numero_de_telefono
+Ciudad de residencia: ciudad
 Productos: [
-Producto1: numero_de_unidades
-producto2: numero_de:unidades                                 
+SKU1: cantidad
+SKU2: cantidad
 ]
-"""})
+"""
+})
+
  
-        self.messages.append({"role":"system", "content":f"""✅ Ejemplo de respuesta correcta:
-*Cliente:
-Mi nombre es juan perez, mi correo es juanperez@example.com, mi numero de telefono: 555-123-4567
-mi ciudad es Saltillo y los productos son 1694525, 1520369, 1681868
-                     
+        self.messages.append({
+    "role": "system",
+    "content": """
+EJEMPLO 1 DE RESPUESTA CORRECTA — TAREA #2
+
+Si el cliente escribe los siguientes datos (Sin importar el orden):
+
+"Me llamo Juan Perez, mi correo es juanperez@example.com, soy de saltillo 
+y me llevo una unidad de cada producto y mi numero es 5551234567 "
+
 REGISTRO_CLIENTE:
-Nombre: Juan Pérez  
-Correo Electronico: juanperez@example.com  
-Numero de telefono: 555-123-4567
-Ciudad de residencia:  Saltillo
-productos: [
-1694525,
-1520369,
-1681868
-]  
-"""})
-        self.messages.append({"role":"system", "content":f"""PARA LA TAREA # 3: Resolver dudas sobre redes y automatizacion industrial
-En base a la consulta de productos, se deplegaran en la pantalla del clinte, la informacion 
-de dichos productos, es posible que el cliente tenga dudas subre esta informacion, asi que como ultima tarea,
-tu deber es detectar las dudas del cliente y resolver estas dudas.
+Nombre: Juan Pérez
+Correo Electronico: juanperez@example.com
+Numero de telefono: 5551234567
+Ciudad de residencia: Saltillo
+Productos: [
+1694525: 1
+1520369: 1
+1681868: 1
+]
+"""
+})
+        self.messages.append({
+    "role": "system",
+    "content": """
+TAREA #3: RESOLUCIÓN DE DUDAS TÉCNICAS
 
-EJEMPLOS DE DUDAS:
+El cliente puede hacer preguntas técnicas relacionadas con:
+- Automatización industrial
+- Sensores y actuadores
+- PLCs
+- Redes industriales (Ethernet/IP, Profinet, RJ45, M12, etc.)
 
-¿Que es la funcion Autocrossing?
-¿Que significa que un cable M12 sea recto?
-¿Que significa Rj45?
+Ejemplos válidos:
+- ¿Qué es la función Auto-crossing?
+- ¿Qué significa que un cable M12 sea recto?
+- ¿Qué es un conector RJ45?
 
-Cabe destacar que si estas dudas no son del campo de la automatizacion industrial y redes
-no puedes responder 
+⚠️ RESTRICCIÓN:
+Si la pregunta NO está relacionada con automatización industrial
+o redes industriales, debes rechazarla de forma educada
+indicando que solo puedes responder dudas técnicas de ese ámbito.
+"""
+})
 
-"""})
-        
+                
         #LLamadas a los metododos
-        self.loadData()#Carga el archivo JSon de los productos
         self.conect()#Establece el cliente de OPenAi
         
 
     def conect(self):#Openrouter necesita de la libreria de OpenAI para funcionar 
-        randNum = random.randint(1,3)
+        randNum = random.randint(1,4)
+        apiKey = ""
         if randNum == 1:
             apiKey = self.apiKey1
         elif randNum == 2:
             apiKey = self.apiKey2
         elif randNum == 3:
             apiKey = self.apiKey3
+        elif randNum == 4:
+            apiKey = self.apiKey4
 
-        self.client = OpenAI(api_key= apiKey ,
-                             base_url= self.url)
+        self.client = OpenAI(api_key= apiKey , base_url= self.url)
+    
     def chat(self, messages):
         chat = self.client.chat.completions.create(
                 model= self.model,
@@ -173,12 +240,13 @@ no puedes responder
             )
             
         return chat.choices[0].message.content
+    
     #Aqui se carga el archivo Json que contiene los datos del proyecto
     def loadData(self):
         filePath =  os.path.join(settings.BASE_DIR,'chat','pxc_data.json')
         try:
             with open(filePath,'r',encoding='utf-8') as f:
-             self.productos = json.load(f)
+                self.productos = json.load(f)
         except FileNotFoundError:
             print(f"error al abrir el arhivo")
         except json.JSONDecodeError:
@@ -186,41 +254,65 @@ no puedes responder
         except Exception as e:
             print(f"ha ocurrido un error {e}")
             
-    # Metodo que hace las consultas dentro del JSON 
-    def buscarProducto(self, entrada):
-        #Se elimina el bloque de texto que encapsula los terminos clave 
+    """
+    Este metodo hace consultas de BD en Odoo via XMLRPC y procesa una salida de 
+    texto con los datos del producto o los prodictos consultados 
+    """
+    def buscarByOdoo(self, entrada):
+        #Declaracion de variables
+        resultados = ''
+        promt = ''
+        noEncontrados =''
+        countFound = 0
+        countNotFounded = 0
+        arrnoEncontrados = []
+        #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
-        consulta = []
-        if not coinsidencia:#Debug en consola en caso de que no se haya encontrado ese bloque de texto
-            print("[DEBUG] No se encontro una solicitud de productos en la base de datos")
         
-        cadena = coinsidencia[0]#Se inicializa la variable con los terminos clave
-        #Si la cadena es una secuencia de 7 digitos (Correspondientes a SKU) entonces se pasa como esta
-        if re.fullmatch(r'\b\d{7}\b', cadena.strip()):
-            consulta = [cadena.strip()]
-        else:
-             #Por lo contrario si no es un SKU, entonces es una palabra clave o una
-            consulta = [prod.strip().lower() for prod in cadena.split(',') if prod.strip()]
-        #Debug para indicar que la consulta entro con exito
-        print(f"[DEBUG] Consulta: {consulta}")
-        resultados = []
-        encontrados = set()
-        #Se recorre el archivo de texto y se buscan coinsidencias
-        for sku, datos in self.productos.items():
-            descripcion = datos.get("descripcion","")
-            for elemento in consulta:
-                #Si el termino clave esta en la descripcion del producto o si es igual al SKU del mismo
-                #Se llena un arreglo con los resultados que servira para redactar un mensaje para el usuario
-                if re.search(elemento, descripcion.lower()) or elemento == sku: 
-                    resultados.append(f"SKU: {sku}\nDescripcion: {descripcion}\n")
-                    encontrados.add(elemento)
-        #Si hubo termino que no se encpontro en la consulta se guarda en este arreglo 
-        noEncontrados = [term for term in consulta if term not in encontrados]
-        promt = ""
-        #Se comienza a redactar un mensaje para el usuario con los resultados
-        if resultados:
-            promt += "Estos son los productos que podrias estar buscando:\n\n" + "\n".join(resultados)
-            promt += f"""\npor favor, si estas interesado en alguno de estos productos, proporcioname los siguientes datos:
+        print(f"[DEBUG] Consulta: {coinsidencia}")
+        #Crear un arreglo con los SKU de los productos separados por ","
+        cadenas = coinsidencia[0].replace(" ","").split(",")#Se eliminan los espacios
+        #Se itera por cada elemento en el arreglo
+        for cadena in cadenas:
+            #Con expresiones regulares, se valida se la el elemento cumple con el patron de un SKU
+            if re.fullmatch(r'^[.-]?[A-Z0-9]+([./-][A-Z0-9]+)*$', cadena.strip()): #Si la cadena filtrada es es un numero de 7 digitos, es un SKU de Parker Phoenix 
+                #llamada a odoo con el elemento del arreglo
+                producto = self.models.execute_kw(
+                    self.odooDB,
+                    self.uid,
+                    self.odooPass,
+                    'product.product',
+                    'search_read',
+                    [[('name', '=', cadena)]],
+                    {'fields':[ 'name', 'default_code', 'list_price']}
+                        )
+                #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
+                if producto:
+                    resultados += f"\nNumero de Parte: {producto[0]['name']}\nDescripcion: {producto[0]['default_code']}\nPrecio por Unidad: {producto[0]['list_price']}\n"
+                    countFound += 1 
+                else:
+                    #Si no se encuentra se guarda el termino y se suma un contador 
+                    countNotFounded += 1
+                    arrnoEncontrados.append(cadena)
+                    
+            else:
+                promt= f"""\n{cadena} no cumple con los requisitos necesarios para ser considerado un numero de parte."""
+                
+        if arrnoEncontrados:#Se crea una lista en texto con los productos no encontrados
+            for i, prod in enumerate(arrnoEncontrados):
+                        if i == len(arrnoEncontrados) -1:
+                            noEncontrados += prod.strip() + "."
+                        else:
+                            noEncontrados += prod.strip() + ", "
+        if resultados:#Si hay resultados se crea un texto final y este varia..
+            #Dependiendo si solo se encontro un producto o mas, se utilizan plurales
+            if  countFound == 1:
+                promt += "Este es el producto que podrias estar buscando:\n" + resultados
+                promt += f"""\npor favor, si estas interesado en este producto, """
+            else:
+                promt += "Estos son los productos que podrias estar buscando:\n" + resultados
+                promt += f"""\npor favor, si estas interesado en alguno de estos productos, """
+            promt += f"""proporcioname los siguientes datos:
 
 ✅ Nombre Completo
 
@@ -231,21 +323,22 @@ no puedes responder
 ✅ Ciudad de residencia
 
 ✅ Numero de parte del producto(s)"""
-        else:
+        else:#Del mismo modo, se crea un texto fiunal para los productos no encontrados
             promt += f"""No se encontraron en la base de datos productos que coinsidan con tu busqueda, por favor, 
 se mas especifico o proporcioname el SKU del producto."""
-       
         if noEncontrados:
-            promt+= "\nlos siguientes terminos no fueron encontrados en la base de datos:"
-
-            for elemento in noEncontrados:
-                promt += f"{elemento}, "
-        
-
+            if countNotFounded == 1:
+                promt += f"\n\nEl siguiente termino no fue encontrado en la base de datos: {noEncontrados}"
+            else:
+                promt += f"\n\nLos siguientes terminos no fueron encontrados en la base de datos: {noEncontrados}"
         return promt
+
+
     #Este metodo toma los datos del cliente, redacta un correo para un agente de ventas y lo envia 
     def registrarCliente(self, entrada):
+        #Declaracion de variables 
         msj = ""
+        destination = self.destinationMail
         subject = "NUEVO LEAD DE VENTA CAPTURADO"
         cadena = re.findall(r"(?:REGISTRO_CLIENTE):\s*(.*)", entrada, re.DOTALL) #Se elimina el bloque contienen los datos
         #Contiene el contenido del correo y se le añade la informacion
@@ -259,10 +352,20 @@ Saludos,
 CEA bot 
 Asistente de ventas 
 CEA: control y elementos de Automatizacion
-"""     #se configuran los correos de envio y destinatario
+"""     
+        #Configuracion de correos de destino 
+        #Se captura la ciudad de residencia del cliente con una Regex
+        firstMatch = re.search(r"Ciudad de residencia:\s*(.+)", entrada, re.IGNORECASE) 
+        if firstMatch:
+            print(f"DEBUG[Ciudad de residencia: {firstMatch.group(1)}]")
+            #Si esta cadena extraida coincide con MTY o Monterrey, se asigna su mail correspondiente
+            if re.search(r"\b(monterrey|mty)\b", firstMatch.group(1), re.IGNORECASE):
+                destination = self.destinationMailMTY
+        
+        #Se llenan los parametros para el envio del MAIL        
         self.mail['Subject'] = subject
         self.mail['From'] = self.myMail
-        self.mail['To'] = self.destinationMail
+        self.mail['To'] = destination
 
         self.mail.set_content(content)
         #se envia el correo 
@@ -270,6 +373,7 @@ CEA: control y elementos de Automatizacion
             with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
                 smtp.login(self.myMail, self.myPassword)
                 smtp.send_message(self.mail)
+                print(f"DEBUG[Se envio un correo a {destination}]")
                 #Mensaje de confirmacion para el usuario
                 msj = f"""¡Gracias por contactarnos!
 
@@ -316,20 +420,20 @@ Comprometidos con brindarte el mejor servicio.
             #Si la REGEX coinside con el bloque de texto de consulta de datos se hace la llamada 
             #al metofo buscarProducto, la respuesta se pasa como respuesta del chatbot
             if re.search("(BUSCAR_PRODUCTO|Producto|producto):.*", response ):
-                response_text = self.buscarProducto(response)
+                response_text = self.buscarByOdoo(response)
             #De la misma forma, si la REGUEX captura el bloque con los datos del cliente,
             #se llama al metodo registrarCliente el resultado se devuelve como respuesta
             elif re.search("(REGISTRO_CLIENTE):.*",response):
                 response_text = self.registrarCliente(response)
                 
-    
+                
             else:
                 response_text = response #en caso de que no sea ninguna de las dos, se pasa la respuesta del modelo
-           
+
             return Response({"response": response_text}, status=200)
             
         except Exception as e:
-            return Response({"error": str(e)}, status=500)    
-        
+            print("ERROR en respuesta de API:")
+            traceback.print_exc() #
+            return Response({"error": str(e)}, status=500)
 
-# Create your views here.
