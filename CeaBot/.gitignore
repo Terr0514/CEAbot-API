@@ -16,3 +16,6 @@ db.sqlite3
 # Archivos de configuración de editor
 .vscode/
 .idea/
+
+#Base de datos en json
+chat/pxc_data.json
