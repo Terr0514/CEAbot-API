@@ -241,19 +241,6 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
             
         return chat.choices[0].message.content
     
-    #Aqui se carga el archivo Json que contiene los datos del proyecto
-    def loadData(self):
-        filePath =  os.path.join(settings.BASE_DIR,'chat','pxc_data.json')
-        try:
-            with open(filePath,'r',encoding='utf-8') as f:
-                self.productos = json.load(f)
-        except FileNotFoundError:
-            print(f"error al abrir el arhivo")
-        except json.JSONDecodeError:
-            print("El archivo no tiene un formato valido")
-        except Exception as e:
-            print(f"ha ocurrido un error {e}")
-            
     """
     Este metodo hace consultas de BD en Odoo via XMLRPC y procesa una salida de 
     texto con los datos del producto o los prodictos consultados 
@@ -266,6 +253,7 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
         countFound = 0
         countNotFounded = 0
         arrnoEncontrados = []
+        arrNoExistencias = []
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
@@ -284,12 +272,20 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     'product.product',
                     'search_read',
                     [[('name', '=', cadena)]],
-                    {'fields':[ 'name', 'default_code', 'list_price']}
+                    {'fields':[ 'name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
-                    resultados += f"\nNumero de Parte: {producto[0]['name']}\nDescripcion: {producto[0]['default_code']}\nPrecio por Unidad: {producto[0]['list_price']}\n"
-                    countFound += 1 
+                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
+                    countFound += 1
+                    if producto[0]['qty_available'] > 0:
+                        resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available']}"
+                    else:
+                        arrNoExistencias.append(producto[0]['name'])
+                        print("DEBUG[Producto sin existencias]")
+                    resultados += "\n"
+                    
+                        
                 else:
                     #Si no se encuentra se guarda el termino y se suma un contador 
                     countNotFounded += 1
@@ -297,7 +293,7 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     
             else:
                 promt= f"""\n{cadena} no cumple con los requisitos necesarios para ser considerado un numero de parte."""
-                
+    
         if arrnoEncontrados:#Se crea una lista en texto con los productos no encontrados
             for i, prod in enumerate(arrnoEncontrados):
                         if i == len(arrnoEncontrados) -1:
@@ -307,22 +303,40 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
         if resultados:#Si hay resultados se crea un texto final y este varia..
             #Dependiendo si solo se encontro un producto o mas, se utilizan plurales
             if  countFound == 1:
-                promt += "Este es el producto que podrias estar buscando:\n" + resultados
+                promt += "📦Este es el producto que podrias estar buscando:\n" + resultados
+                if arrNoExistencias:
+                    promt += "\n⚠️ Disponibilidad:\n"
+                    promt += "Actualmente, el producto no se encuentra en stock, sin embargo, podemos solicitarlo directamente con el fabricante.\n"
                 promt += f"""\npor favor, si estas interesado en este producto, """
             else:
-                promt += "Estos son los productos que podrias estar buscando:\n" + resultados
+                promt += "📦Estos son los productos que podrias estar buscando:\n" + resultados
+                if len(arrNoExistencias) == 1:
+                    promt += "\n⚠️ Disponibilidad:\n"
+                    promt += f"\nActualmente, el producto {arrNoExistencias[0]} no se encuentra en stock, sin emgargo, podemos solicitarlo directamente con el fabricante.\n"
+                if len(arrNoExistencias) > 1 and len(arrNoExistencias) != countFound:
+                    stringProductos = ""
+                    print(arrNoExistencias)
+                    for i, producto in enumerate(arrNoExistencias):
+                        if i == 0:
+                            stringProductos += f"{arrNoExistencias[i]}"
+                        elif i == len(arrNoExistencias) -1 :
+                            stringProductos += f" y {arrNoExistencias[i]}"
+                        else:
+                            stringProductos += f", {arrNoExistencias[i]}"
+                
+                    promt += "\n⚠️ Disponibilidad:\n"
+                    promt += f"\nActualmente, los productos {stringProductos} no se encuentran en stock, sin emgargo, podemos solicitarlos directamente con el fabricante.\n"
+                elif len(arrNoExistencias) == countFound:    
+                    promt += "\n⚠️ Disponibilidad:\n"
+                    promt += f"\nActualmente, ninguno de los productos que solicitaste se encuentra en stock, sin emgargo, podemos solicitarlos directamente con el fabricante.\n"
                 promt += f"""\npor favor, si estas interesado en alguno de estos productos, """
             promt += f"""proporcioname los siguientes datos:
 
-✅ Nombre Completo
-
-✅ Numero de telefono
-
-✅ Correo Electronico
-
-✅ Ciudad de residencia
-
-✅ Numero de parte del producto(s)"""
+👤 Nombre Completo
+📞 Número de Teléfono
+📧 Correo Electrónico
+📍 Ciudad de Residencia
+🧩 Número de Parte del/los producto(s) (y sus cantidades)"""
         else:#Del mismo modo, se crea un texto fiunal para los productos no encontrados
             promt += f"""No se encontraron en la base de datos productos que coinsidan con tu busqueda, por favor, 
 se mas especifico o proporcioname el SKU del producto."""
