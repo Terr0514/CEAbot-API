@@ -10,6 +10,7 @@ tecnologias aplicadas:
 ->OpenAi
 '''
 #Librerias de Django para API
+from itertools import product
 from rest_framework.views import APIView
 from rest_framework.response import Response 
 from django.conf import settings, traceback
@@ -20,7 +21,9 @@ import re
 #Envio de correos
 import smtplib
 from email.message import EmailMessage
-
+#Conversion de divisas en tiempo real
+from currency_converter import CurrencyConverter
+from datetime import datetime
 import os
 import random
 import xmlrpc.client
@@ -58,7 +61,8 @@ class CeaBot_API(APIView):
             self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object')
         except Exception as e:
             print(f'Error de conexion: {e}')
-    
+        #Para calculo de precios y conversion de divisas
+        self.arrPriceDict = []
         #Mensajes de contextualizacion 
         self.messages = [{
     "role": "system",
@@ -214,12 +218,9 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
 """
 })
 
-                
-        #LLamadas a los metododos
-        self.conect()#Establece el cliente de OPenAi
+    #Openrouter necesita de la libreria de OpenAI para funcionar        
+    def chat(self, messages):
         
-
-    def conect(self):#Openrouter necesita de la libreria de OpenAI para funcionar 
         randNum = random.randint(1,4)
         apiKey = ""
         if randNum == 1:
@@ -230,16 +231,47 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
             apiKey = self.apiKey3
         elif randNum == 4:
             apiKey = self.apiKey4
-
-        self.client = OpenAI(api_key= apiKey , base_url= self.url)
-    
-    def chat(self, messages):
-        chat = self.client.chat.completions.create(
-                model= self.model,
-                messages= messages, #el diccionario "messages" contiene el historial de mensajes 
-            )
+        
+        allAPIS = [self.apiKey1,self.apiKey2,self.apiKey3,self.apiKey4]
+        notSelectedApis = [api for api in allAPIS if api != apiKey]
+        
+        for i, api in enumerate(notSelectedApis):
             
-        return chat.choices[0].message.content
+            try:
+                self.client = OpenAI(api_key= apiKey , base_url= self.url)
+                chat = self.client.chat.completions.create(
+                    model= self.model,
+                    messages= messages, #el diccionario "messages" contiene el historial de mensajes 
+                    )
+                if not chat:
+                    print("ERROR Respuesta vacia de openRouter")
+                    return "Lo siento, hubo un error al procesar tu mensaje"
+                content = chat.choices[0].message.content
+                if not content:
+                    
+                    print("ERROR el contenido de la respuesta esta vacio")
+                    
+                    apiKey = api
+                    if i > len(notSelectedApis) -1:
+                        continue
+                    
+                    return("los siento, hubo un error al responder tu mensaje")    
+                
+                return content
+            
+            except AttributeError as e:
+                print(f"ERROR AtributeError")
+                print(f"Objeto chat {chat}")
+                apiKey = api
+                if i > len(notSelectedApis) -1:
+                    continue
+                return "lo siento he tenido un problema de conexion"
+            except Exception as e:
+                print(f"Error deconocido: {e}")
+                apiKey = api
+                if i > len(notSelectedApis) -1:
+                    continue
+                return "Lo siento ha habido un error al conectareme a la base de datos"
     
     """
     Este metodo hace consultas de BD en Odoo via XMLRPC y procesa una salida de 
@@ -276,6 +308,8 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
+                    #:w
+                    # self.arrPriceDict.append({"name":producto[0]['name'],"precio":producto[0]['listPrice'], "divisa":producto[0]['x_studio_moneda']})
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
                     countFound += 1
                     if producto[0]['qty_available'] > 0:
@@ -355,8 +389,37 @@ se mas especifico o proporcioname el SKU del producto."""
         destination = self.destinationMail
         subject = "NUEVO LEAD DE VENTA CAPTURADO"
         cadena = re.findall(r"(?:REGISTRO_CLIENTE):\s*(.*)", entrada, re.DOTALL) #Se elimina el bloque contienen los datos
-        #Contiene el contenido del correo y se le añade la informacion
-        content = f"""Hola Francisco,
+        
+        #Configuracion de correos de destino 
+        #Se captura la ciudad de residencia del cliente con una Regex
+        city = re.search(r"Ciudad de residencia:\s*(.+)", entrada, re.IGNORECASE) 
+        clientName = re.search(r"Nombre:\s*(.+)", entrada, re.IGNORECASE)
+        clientEMail = re.search(r"Correo Electronico:\s(.+)", entrada, re.IGNORECASE)
+        clientNumber = re.search(r"Numero de telefono:\s(.+)",entrada, re.IGNORECASE)
+        products =  re.search(r"\[([^\]]*)\]",entrada, re.DOTALL)
+        partnerID = 67
+        user_id = 2
+        teamID = 1
+        partnerName = 'Vianey'
+        print(products)
+        
+        if city:
+            print(f"DEBUG[Ciudad de residencia: {city.group(1)}]")
+            #Si esta cadena extraida coincide con MTY o Monterrey, se asigna su mail correspondiente
+            if re.search(r"\b(monterrey|mty)\b", city.group(1), re.IGNORECASE):
+                destination = self.destinationMailMTY
+                partnerID = 73
+                partnerName = "Alis"
+                user_id = 7
+                teamID = 4
+            elif re.search(r"\b(saltillo)\b", city.group(1), re.IGNORECASE):
+                partnerID = 5352
+                user_id = 9
+                teamID = 5
+                partnerName = "Juan Jose"
+        
+    #Contiene el contenido del correo y se le añade la informacion
+        content = f"""Hola {partnerName},
 Se ha registrado una nueva oportunidad de venta en el portal oficial de CEA, a continuacion te 
 comparto los datos para que puedas darle seguimiento. 
 
@@ -367,27 +430,35 @@ CEA bot
 Asistente de ventas 
 CEA: control y elementos de Automatizacion
 """     
-        #Configuracion de correos de destino 
-        #Se captura la ciudad de residencia del cliente con una Regex
-        firstMatch = re.search(r"Ciudad de residencia:\s*(.+)", entrada, re.IGNORECASE) 
-        if firstMatch:
-            print(f"DEBUG[Ciudad de residencia: {firstMatch.group(1)}]")
-            #Si esta cadena extraida coincide con MTY o Monterrey, se asigna su mail correspondiente
-            if re.search(r"\b(monterrey|mty)\b", firstMatch.group(1), re.IGNORECASE):
-                destination = self.destinationMailMTY
-        
+        self.createNewLead(city=city.group(1), name=clientName.group(1), email=clientEMail.group(1), phoneNumber=clientNumber.group(1), productList=str(products.group(1)).replace("\n", "|").strip(), userID = user_id, teamID=teamID, msjContent = content)    
         #Se llenan los parametros para el envio del MAIL        
         self.mail['Subject'] = subject
         self.mail['From'] = self.myMail
         self.mail['To'] = destination
 
         self.mail.set_content(content)
+        
+        if partnerID != 0:
+            self.models.execute_kw(
+                self.odooDB,
+                self.uid,
+                self.odooPass,
+                'res.partner', 'message_post',
+                [[partnerID]],
+                {
+                    'body': content,
+                    'message_type':'comment',
+                    'subtype_xmlid':'mail.mt_comment'
+                }
+            )
+        
         #se envia el correo 
         try:
             with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
                 smtp.login(self.myMail, self.myPassword)
                 smtp.send_message(self.mail)
                 print(f"DEBUG[Se envio un correo a {destination}]")
+                
                 #Mensaje de confirmacion para el usuario
                 msj = f"""¡Gracias por contactarnos!
 
@@ -414,6 +485,88 @@ Comprometidos con brindarte el mejor servicio.
 
 """
         return msj
+    #Metodo que toma los datos del cliente proporcionados por el chatbot y agenda un lead de venta en Odoo
+    def createNewLead(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
+        print(productList)
+        tagsID = []
+        arrDicProd = []
+        arrprod = productList.split('|')
+        totalPrice = 0
+        print(arrprod)
+        for prod in arrprod:
+            print(prod)
+            if prod == '':
+                continue
+            unidProduct = prod.split(':')
+            arrDicProd.append({"sku":unidProduct[0], "unidades":unidProduct[1].replace(" ", "")})
+        for dicProd in arrDicProd:
+            product = self.models.execute_kw(
+                self.odooDB,
+                self.uid,
+                self.odooPass,
+                'product.template',
+                'search_read',
+                [[('name', '=', dicProd["sku"])]],
+                {'fields':['name', 'list_price', 'x_studio_moneda' , 'x_studio_marca_1']}
+                
+            )
+            if product[0]['x_studio_moneda'] == 'USD':
+                c = CurrencyConverter()
+                basePrice = c.convert(product[0]['list_price'],'USD', 'MXN')
+            elif product[0]['x_studio_moneda'] == 'MXN':
+                basePrice = product[0]['list_price']
+            totalPrice =+ basePrice * int(dicProd['unidades'])
+            if product[0]['x_studio_marca_1'] == 'PATLITE':
+                tagsID.append(1)
+            elif product[0]['x_studio_marca_1'] == 'PILZ':
+                tagsID.append(6)
+            elif product[0]['x_studio_marca_1'] == 'Parker Hannifin':
+                tagsID.append(8)
+            elif product[0]['x_studio_marca_1'] == 'CONTRINEX':
+                tagsID.append(14)
+            elif product[0]['x_studio_marca_1'] == 'PHOENIX CONTACT':
+                tagsID.append(15)
+        
+        leadID = self.models.execute_kw(
+                self.odooDB,
+                self.uid,
+                self.odooPass,
+                'crm.lead',
+                'create',
+                [{
+                    'name':f"CEAbot: Oportunidad capturada para {name} {datetime.now().strftime("%d/%m/%Y %H:%M:%S")}",
+                    'contact_name': name,
+                    'email_from':email,
+                    'phone': phoneNumber,
+                    'expected_revenue': totalPrice,
+                    'type':'opportunity',
+                    'description': f"Posible cliente {name}, proviniente de {city} intersad@ en los productos {productList}",
+                    'tag_ids': [(6,0, tagsID)],
+                    'user_id': userID,
+                    'team_id': teamID,
+                    'company_id': 1
+                }]
+                )
+        if leadID != 0:
+            self.models.execute_kw(
+                self.odooDB,
+                self.uid,
+                self.odooPass,
+                'crm.lead',
+                'message_post',
+                [[leadID]],
+                {
+                    'body':msjContent,
+                    'message_type':'comment',
+                    'subtype_xmlid': 'mail.mt_comment'
+                }
+                
+                
+            )
+            
+            
+
+
     #Metodo post para la API que resive el mensaje del usuario devuelve la respuesta del modelos
     def post(self, request):
         #se rescive el historial de mensajes, ya que esta se debe almacenar desde
