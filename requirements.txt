@@ -3,6 +3,7 @@ anyio==4.9.0
 asgiref==3.9.0
 bcc==0.1.10
 certifi==2025.6.15
+CurrencyConverter==0.18.13
 distro==1.9.0
 dj-database-url==3.0.1
 Django==5.2.4
