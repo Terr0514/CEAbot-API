@@ -41,7 +41,7 @@ class CeaBot_API(APIView):
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
-        self.model = "meta-llama/llama-3.3-70b-instruct:free"
+        self.model = "arcee-ai/trinity-large-preview:free"
         self.messages = []
         self.mail = EmailMessage()
         #CREDENCIALES EMAIL
@@ -113,12 +113,12 @@ BUSCAR_PRODUCTO: 1883390, 2A000004, 129028
 EJEMPLOS — TAREA #1
 
 Entrada del cliente:
-"SKU: 1883390"
-"Busco el artículo 1883390"
-"¿Tienes disponible el 1883390?"
+"SKU:  .31BFDSR01.5"
+"Busco el artículo  .31BFDSR01.5"
+"¿Tienes disponible el  .31BFDSR01.5"
 
 Respuesta correcta del bot:
-BUSCAR_PRODUCTO: 1883390
+BUSCAR_PRODUCTO:  .31BFDSR01.5
 """
 })
 
@@ -243,21 +243,30 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     model= self.model,
                     messages= messages, #el diccionario "messages" contiene el historial de mensajes 
                     )
+                
                 if not chat:
                     print("ERROR Respuesta vacia de openRouter")
-                    return "Lo siento, hubo un error al procesar tu mensaje"
+                    return {
+                        'content': 'Lo siento, ha habido un problema en al procesar tu mensaje.',
+                        'action':'none'
+                    }
                 content = chat.choices[0].message.content
+        
                 if not content:
-                    
                     print("ERROR el contenido de la respuesta esta vacio")
-                    
                     apiKey = api
                     if i > len(notSelectedApis) -1:
                         continue
                     
-                    return("los siento, hubo un error al responder tu mensaje")    
+                    return{
+                        'content':'Lo siento, ha habido un problema al precesar tu mensaje.',
+                        'action': 'none'
+                    }    
                 
-                return content
+                return {
+                    'content': content,
+                    'action':'none'
+                }
             
             except AttributeError as e:
                 print(f"ERROR AtributeError")
@@ -265,13 +274,17 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                 apiKey = api
                 if i > len(notSelectedApis) -1:
                     continue
-                return "lo siento he tenido un problema de conexion"
+                return {
+                    'content':'Lo siento, ha habido un error al prcesar tu mensaje.',
+                    'action':'none'
+                }
             except Exception as e:
                 print(f"Error deconocido: {e}")
                 apiKey = api
                 if i > len(notSelectedApis) -1:
                     continue
-                return "Lo siento ha habido un error al conectareme a la base de datos"
+                return {'content':'Lo siento, ha habido un problema al conectarme con la base de datos.',
+                        'action':'none'}
     
     """
     Este metodo hace consultas de BD en Odoo via XMLRPC y procesa una salida de 
@@ -284,6 +297,8 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
         noEncontrados =''
         countFound = 0
         countNotFounded = 0
+        arrEncontrados = []
+        action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
@@ -303,13 +318,15 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     self.odooPass,
                     'product.product',
                     'search_read',
-                    [[('name', '=', cadena)]],
+                    [[('name', 'ilike', cadena)]],
                     {'fields':[ 'name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
                     #:w
                     # self.arrPriceDict.append({"name":producto[0]['name'],"precio":producto[0]['listPrice'], "divisa":producto[0]['x_studio_moneda']})
+                    arrEncontrados.append(producto[0]['name'])
+                    action = 'form'
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
                     countFound += 1
                     if producto[0]['qty_available'] > 0:
@@ -379,7 +396,11 @@ se mas especifico o proporcioname el SKU del producto."""
                 promt += f"\n\nEl siguiente termino no fue encontrado en la base de datos: {noEncontrados}"
             else:
                 promt += f"\n\nLos siguientes terminos no fueron encontrados en la base de datos: {noEncontrados}"
-        return promt
+        return {
+            'content':promt,
+            'action': action,
+            'products':arrEncontrados
+        }
 
 
     #Este metodo toma los datos del cliente, redacta un correo para un agente de ventas y lo envia 
@@ -397,10 +418,10 @@ se mas especifico o proporcioname el SKU del producto."""
         clientEMail = re.search(r"Correo Electronico:\s(.+)", entrada, re.IGNORECASE)
         clientNumber = re.search(r"Numero de telefono:\s(.+)",entrada, re.IGNORECASE)
         products =  re.search(r"\[([^\]]*)\]",entrada, re.DOTALL)
-        partnerID = 67
-        user_id = 2
+        partnerID = 5353
+        user_id = 10
         teamID = 1
-        partnerName = 'Vianey'
+        partnerName = 'Alan'
         print(products)
         
         if city:
@@ -484,7 +505,10 @@ CEA – Control y Elementos de Automatización
 Comprometidos con brindarte el mejor servicio.
 
 """
-        return msj
+        return {
+            'content':msj,
+            'action':'none'
+        }
     #Metodo que toma los datos del cliente proporcionados por el chatbot y agenda un lead de venta en Odoo
     def createNewLead(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
         print(productList)
@@ -583,21 +607,25 @@ Comprometidos con brindarte el mejor servicio.
         try:
             #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
             response = self.chat(self.messages)
+            responseContent = response['content']
             response_text = ""
             #Si la REGEX coinside con el bloque de texto de consulta de datos se hace la llamada 
             #al metofo buscarProducto, la respuesta se pasa como respuesta del chatbot
-            if re.search("(BUSCAR_PRODUCTO|Producto|producto):.*", response ):
-                response_text = self.buscarByOdoo(response)
+            if re.search("(BUSCAR_PRODUCTO|Producto|producto):.*", responseContent ):
+                response_text = self.buscarByOdoo(responseContent)
             #De la misma forma, si la REGUEX captura el bloque con los datos del cliente,
             #se llama al metodo registrarCliente el resultado se devuelve como respuesta
-            elif re.search("(REGISTRO_CLIENTE):.*",response):
-                response_text = self.registrarCliente(response)
+            elif re.search("(REGISTRO_CLIENTE):.*",responseContent):
+                response_text = self.registrarCliente(responseContent)
                 
                 
             else:
                 response_text = response #en caso de que no sea ninguna de las dos, se pasa la respuesta del modelo
-
-            return Response({"response": response_text}, status=200)
+            
+            print(response_text['action'])
+            
+            return Response(response_text, status=200)
+            
             
         except Exception as e:
             print("ERROR en respuesta de API:")
