@@ -49,11 +49,13 @@ class CeaBot_API(APIView):
         self.myPassword = settings.CEA_PASS
         self.destinationMail = settings.DEST_MAIL
         self.destinationMailMTY = settings.DEST_MAILMTY
+        self.destinationMailSaltillo = settings.DEST_MAILSALTILLO
         #PARAMETROS ODOO
         self.odooDB = settings.ODOO_DB
         self.odooUser = settings.ODOO_USER
         self.odooPass = settings.ODOO_PASSWORD
         self.odooURL = settings.ODOO_URL
+
         #Conexion con Odoo
         try:
             self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common')
@@ -434,6 +436,7 @@ se mas especifico o proporcioname el SKU del producto."""
                 user_id = 7
                 teamID = 4
             elif re.search(r"\b(saltillo)\b", city.group(1), re.IGNORECASE):
+                destination = self.destinationMailSaltillo
                 partnerID = 5352
                 user_id = 9
                 teamID = 5

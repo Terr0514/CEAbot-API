@@ -26,6 +26,7 @@ ODOO_DB = config("ODOO_DB")
 CEA_MAIL = config("CEA_MAIL")
 DEST_MAIL = config("DEST_MAIL")
 DEST_MAILMTY = config("DEST_MAILMTY")
+DEST_MAILSALTILLO = config("DEST_MAILSALTILLO")
 ODOO_USER = config("ODOO_USER")
 #Contrase;as 
 CEA_PASS = config("CEA_PASS")
