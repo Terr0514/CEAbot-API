@@ -65,6 +65,16 @@ class CeaBot_API(APIView):
             print(f'Error de conexion: {e}')
         #Para calculo de precios y conversion de divisas
         self.arrPriceDict = []
+        #Mensaje de confirmacion
+        self.confirmMsj = """¡Gracias por contactarnos!
+
+Hemos recibido correctamente tus datos de contacto y la solicitud de cotización para los productos de tu interés.
+Un agente de CEA: Control y Elementos de Automatización se pondrá en contacto contigo lo antes posible para brindarte la información detallada y ayudarte con tu cotización.
+
+Si tienes alguna duda o deseas agregar más información, no dudes en responder este mensaje.
+
+¡Estamos para ayudarte!
+CEA – Control y Elementos de Automatización"""
         #Mensajes de contextualizacion 
         self.messages = [{
     "role": "system",
@@ -481,19 +491,58 @@ CEA: control y elementos de Automatizacion
         
         """
         
-        msj = f"""¡Gracias por contactarnos!
-
-Hemos recibido correctamente tus datos de contacto y la solicitud de cotización para los productos de tu interés.
-Un agente de CEA: Control y Elementos de Automatización se pondrá en contacto contigo lo antes posible para brindarte la información detallada y ayudarte con tu cotización.
-
-Si tienes alguna duda o deseas agregar más información, no dudes en responder este mensaje.
-
-¡Estamos para ayudarte!
-CEA – Control y Elementos de Automatización"""
+        msj = self.confirmMsj
         return {
             'content':msj,
             'action':'none'
         }
+    def procesUserData(self, entrada):
+        partnerID = 5353
+        user_id = 10
+        teamID = 1
+        partnerName = 'Alan'
+        nombre = re.search(r"Nombre:\s*(.+)", entrada)
+        telefono = re.search(r"Teléfono:\s*(\d+)", entrada)
+        correo = re.search(r"Correo:\s*([\w\.-]+@[\w\.-]+\.\w+)", entrada)
+        ciudad = re.search(r"Ciudad:\s*(.+)", entrada)
+        productos = re.findall(r"SKU\s+([\w\d]+):\s*(\d+)", entrada)
+
+        cadena_productos = ""
+
+        for sku, cantidad in productos:
+            cadena_productos += f"{sku}:{cantidad}|"
+
+        print(cadena_productos)
+        
+        if re.search(r"\b(monterrey|mty)\b", ciudad.group(1), re.IGNORECASE):
+                
+                partnerID = 73
+                partnerName = "Alis"
+                user_id = 7
+                teamID = 4
+        elif re.search(r"\b(saltillo|sty)\b", ciudad.group(1), re.IGNORECASE):
+                
+                partnerID = 5352
+                user_id = 9
+                teamID = 5
+                partnerName = "Juan Jose"
+        content = f"""Hola {partnerName},
+Se ha registrado una nueva oportunidad de venta en el portal oficial de CEA, a continuacion te 
+comparto los datos para que puedas darle seguimiento. 
+
+{entrada}
+
+Saludos,
+CEA bot 
+Asistente de ventas 
+CEA: control y elementos de Automatizacion
+"""     
+        self.createNewLead(city=ciudad.group(1), name=nombre.group(1), email=correo.group(1), phoneNumber=telefono.group(1), productList = cadena_productos, userID = user_id, teamID=teamID, msjContent = content)             
+        return {
+            'content':self.confirmMsj,
+            'action':'none'
+        }
+            
     #Metodo que toma los datos del cliente proporcionados por el chatbot y agenda un lead de venta en Odoo
     def createNewLead(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
         print(productList)
@@ -586,34 +635,38 @@ CEA – Control y Elementos de Automatización"""
         #Si el mensaje no es resivido el API responde con un mensaje de error
         if not user_message:
             return Response({"error":"No se recivio un mensaje de parte del usuario"}, status = 400)
+        elif "Solicitud de Cotización" in user_message:
+            print("Es una solicitud de cotización")
+            return Response(self.procesUserData(user_message))
+        else:
         #Se añade el historial de mensajes de la app front al de la API
-        self.messages.extend(history)
+            self.messages.extend(history)
         
-        try:
-            #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
-            response = self.chat(self.messages)
-            responseContent = response['content']
-            response_text = ""
-            #Si la REGEX coinside con el bloque de texto de consulta de datos se hace la llamada 
-            #al metofo buscarProducto, la respuesta se pasa como respuesta del chatbot
-            if re.search("(BUSCAR_PRODUCTO|Producto|producto):.*", responseContent ):
-                response_text = self.buscarByOdoo(responseContent)
-            #De la misma forma, si la REGUEX captura el bloque con los datos del cliente,
-            #se llama al metodo registrarCliente el resultado se devuelve como respuesta
-            elif re.search("(REGISTRO_CLIENTE):.*",responseContent):
-                response_text = self.registrarCliente(responseContent)
+            try:
+                #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
+                response = self.chat(self.messages)
+                responseContent = response['content']
+                response_text = ""
+                #Si la REGEX coinside con el bloque de texto de consulta de datos se hace la llamada 
+                #al metofo buscarProducto, la respuesta se pasa como respuesta del chatbot
+                if re.search("(BUSCAR_PRODUCTO|Producto|producto):.*", responseContent ):
+                    response_text = self.buscarByOdoo(responseContent)
+                    #De la misma forma, si la REGUEX captura el bloque con los datos del cliente,
+                    #se llama al metodo registrarCliente el resultado se devuelve como respuesta
+                elif re.search("(REGISTRO_CLIENTE):.*",responseContent):
+                    response_text = self.registrarCliente(responseContent)
                 
                 
-            else:
-                response_text = response #en caso de que no sea ninguna de las dos, se pasa la respuesta del modelo
+                else:
+                    response_text = response #en caso de que no sea ninguna de las dos, se pasa la respuesta del modelo
             
-            print(response_text['action'])
+                    print(response_text['action'])
             
-            return Response(response_text, status=200)
+                return Response(response_text, status=200)
             
             
-        except Exception as e:
-            print("ERROR en respuesta de API:")
-            traceback.print_exc() #
-            return Response({"error": str(e)}, status=500)
+            except Exception as e:
+                print("ERROR en respuesta de API:")
+                traceback.print_exc() #
+                return Response({"error": str(e)}, status=500)
 
