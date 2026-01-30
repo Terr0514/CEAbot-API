@@ -477,14 +477,11 @@ CEA: control y elementos de Automatizacion
             )
         
         #se envia el correo 
-        try:
-            with smtplib.SMTP_SSL('smtp.gmail.com',465) as smtp:
-                smtp.login(self.myMail, self.myPassword)
-                smtp.send_message(self.mail)
-                print(f"DEBUG[Se envio un correo a {destination}]")
-                
-                #Mensaje de confirmacion para el usuario
-                msj = f"""¡Gracias por contactarnos!
+        """
+        
+        """
+        
+        msj = f"""¡Gracias por contactarnos!
 
 Hemos recibido correctamente tus datos de contacto y la solicitud de cotización para los productos de tu interés.
 Un agente de CEA: Control y Elementos de Automatización se pondrá en contacto contigo lo antes posible para brindarte la información detallada y ayudarte con tu cotización.
@@ -493,21 +490,6 @@ Si tienes alguna duda o deseas agregar más información, no dudes en responder 
 
 ¡Estamos para ayudarte!
 CEA – Control y Elementos de Automatización"""
-        #Si ocurrio un error con el correo se captura la excepcion
-        # y se redacta un mensaje para el usuario       
-        except Exception as e:
-            print(f"Error al enviar el correo {e}")
-            msj = f"""¡Algo salió mal!
-
-Lamentablemente, no pudimos registrar tus datos de contacto ni tu solicitud de cotización en nuestro sistema.
-Por favor, verifica la información ingresada e intenta nuevamente.
-
-Si el problema persiste, puedes contactarnos directamente a través de nuestros canales de atención para recibir asistencia.
-
-CEA – Control y Elementos de Automatización
-Comprometidos con brindarte el mejor servicio.
-
-"""
         return {
             'content':msj,
             'action':'none'
