@@ -14,6 +14,8 @@ from itertools import product
 from rest_framework.views import APIView
 from rest_framework.response import Response 
 from django.conf import settings, traceback
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 #Libreria de OPENAI
 from openai import OpenAI
 #Expresiones regulares
@@ -28,7 +30,7 @@ import os
 import random
 import xmlrpc.client
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class CeaBot_API(APIView):
     #Constructor 
     def __init__(self, **kwargs):
