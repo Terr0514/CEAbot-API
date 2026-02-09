@@ -463,44 +463,18 @@ Saludos,
 CEA bot 
 Asistente de ventas 
 CEA: control y elementos de Automatizacion
-"""     
-        self.createNewLead(city=city.group(1), name=clientName.group(1), email=clientEMail.group(1), phoneNumber=clientNumber.group(1), productList=str(products.group(1)).replace("\n", "|").strip(), userID = user_id, teamID=teamID, msjContent = content)    
-        #Se llenan los parametros para el envio del MAIL        
-        self.mail['Subject'] = subject
-        self.mail['From'] = self.myMail
-        self.mail['To'] = destination
-
-        self.mail.set_content(content)
-        
-        if partnerID != 0:
-            self.models.execute_kw(
-                self.odooDB,
-                self.uid,
-                self.odooPass,
-                'res.partner', 'message_post',
-                [[partnerID]],
-                {
-                    'body': content,
-                    'message_type':'comment',
-                    'subtype_xmlid':'mail.mt_comment'
-                }
-            )
-        
-        #se envia el correo 
-        """
-        
-        """
+"""    
         
         msj = self.confirmMsj
-        return {
-            'content':msj,
-            'action':'none'
-        }
+        
+        return  self.sendMail(city=city, content= content, destMail=destination)
+    
     def procesUserData(self, entrada):
         partnerID = 5353
         user_id = 10
         teamID = 1
         partnerName = 'Alan'
+        destination = self.destinationMail
         nombre = re.search(r"Nombre:\s*(.+)", entrada)
         telefono = re.search(r"Teléfono:\s*(\d+)", entrada)
         correo = re.search(r"Correo:\s*([\w\.-]+@[\w\.-]+\.\w+)", entrada)
@@ -515,13 +489,13 @@ CEA: control y elementos de Automatizacion
         print(cadena_productos)
         
         if re.search(r"\b(monterrey|mty)\b", ciudad.group(1), re.IGNORECASE):
-                
+                destination = self.destinationMailMTY
                 partnerID = 73
                 partnerName = "Alis"
                 user_id = 7
                 teamID = 4
         elif re.search(r"\b(saltillo|sty)\b", ciudad.group(1), re.IGNORECASE):
-                
+                destination = self.destinationMailSaltillo
                 partnerID = 5352
                 user_id = 9
                 teamID = 5
@@ -538,10 +512,42 @@ Asistente de ventas
 CEA: control y elementos de Automatizacion
 """     
         self.createNewLead(city=ciudad.group(1), name=nombre.group(1), email=correo.group(1), phoneNumber=telefono.group(1), productList = cadena_productos, userID = user_id, teamID=teamID, msjContent = content)             
-        return {
-            'content':self.confirmMsj,
-            'action':'none'
-        }
+        
+    
+        
+        return self.sendMail(ciudad, content, destination)
+        
+    def sendMail(self, city, content,destMail):
+            #Creacion de un Correo por Odoo 
+            mail_id = self.models.execute_kw(
+            'mail.mail',
+            'create', [{
+                'subject':f'NUEVO LEAD DE VENTA REGISTRADO PARA {city.upper()}',
+                'body_html':f'<p>{content}<p>',
+                'email_to':destMail,
+                'email_from':self.myMail
+            }])
+            #Envio de correo
+            if mail_id:
+                self.models.execute.execute_kw(
+                    self.odooDB,
+                    self.uid,
+                    self.odooPass,
+                    'mail.mail',
+                    'send',
+                    [[mail_id]])
+                return{
+                    'content': self.confirmMsj,
+                    'action':'none'
+                }
+            else:
+                return{
+                    'content':"Lo sentimos, se presentó un problema al enviar la notificación de tu cotización. Estamos trabajando para solucionarlo.",
+                    'action':'none'
+                }
+            
+        
+        
             
     #Metodo que toma los datos del cliente proporcionados por el chatbot y agenda un lead de venta en Odoo
     def createNewLead(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
