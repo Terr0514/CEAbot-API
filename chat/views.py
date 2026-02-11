@@ -524,7 +524,7 @@ CEA: control y elementos de Automatizacion
             mail_id = self.models.execute_kw(
             'mail.mail',
             'create', [{
-                'subject':f'NUEVO LEAD DE VENTA REGISTRADO PARA {city.upper()}',
+                'subject':f'NUEVO LEAD DE VENTA REGISTRADO PARA {str(city.upper())}',
                 'body_html':f'<p>{content}<p>',
                 'email_to':destMail,
                 'email_from':self.myMail
