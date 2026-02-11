@@ -70,6 +70,7 @@ MIDDLEWARE = [
 # Configuración CORS
 CORS_ALLOWED_ORIGINS = [
     "https://ceacontrol.com",
+    "http://127.0.0.1:5501/",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
