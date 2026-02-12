@@ -60,9 +60,9 @@ class CeaBot_API(APIView):
 
         #Conexion con Odoo
         try:
-            self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common')
+            self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common', allow_none = True)
             self.uid = self.common.authenticate(self.odooDB, self.odooUser, self.odooPass, {})
-            self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object')
+            self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object', allow_none=True)
         except Exception as e:
             print(f'Error de conexion: {e}')
         #Para calculo de precios y conversion de divisas
