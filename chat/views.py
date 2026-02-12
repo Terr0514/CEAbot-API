@@ -540,7 +540,10 @@ CEA: control y elementos de Automatizacion
                     self.odooPass,
                     'mail.mail',
                     'send',
-                    [[mail_id]])
+                    [[mail_id]],
+                    {}
+                    )
+                
                 return{
                     'content': self.confirmMsj,
                     'action':'none'
