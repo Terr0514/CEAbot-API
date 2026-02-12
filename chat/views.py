@@ -522,6 +522,9 @@ CEA: control y elementos de Automatizacion
     def sendMail(self, city, content,destMail):
             #Creacion de un Correo por Odoo 
             mail_id = self.models.execute_kw(
+            self.odooDB,
+            self.uid,
+            self.odooPass,
             'mail.mail',
             'create', [{
                 'subject':f'NUEVO LEAD DE VENTA REGISTRADO PARA {str(city).upper()}',
