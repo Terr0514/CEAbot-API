@@ -60,9 +60,9 @@ class CeaBot_API(APIView):
 
         #Conexion con Odoo
         try:
-            self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common', allow_none = True)
+            self.common = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/2/common')
             self.uid = self.common.authenticate(self.odooDB, self.odooUser, self.odooPass, {})
-            self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object', allow_none=True)
+            self.models = xmlrpc.client.ServerProxy(f'{self.odooURL}/xmlrpc/object')
         except Exception as e:
             print(f'Error de conexion: {e}')
         #Para calculo de precios y conversion de divisas
@@ -469,14 +469,19 @@ CEA: control y elementos de Automatizacion
         
         msj = self.confirmMsj
         
-        return  self.sendMail(city=city, content= content, destMail=destination)
+        
+        self.createNewLead(city=city.group(1), name=clientName.group(1), email=clientEMail.group(1), phoneNumber=clientNumber.group(1), productList = products, userID = user_id, teamID=teamID, msjContent = content)             
+
+        return {
+            'content':msj,
+            'action': 'none'
+        }
     
     def procesUserData(self, entrada):
-        partnerID = 5353
+        
         user_id = 10
         teamID = 1
         partnerName = 'Alan'
-        destination = self.destinationMail
         nombre = re.search(r"Nombre:\s*(.+)", entrada)
         telefono = re.search(r"Teléfono:\s*(\d+)", entrada)
         correo = re.search(r"Correo:\s*([\w\.-]+@[\w\.-]+\.\w+)", entrada)
@@ -491,14 +496,10 @@ CEA: control y elementos de Automatizacion
         print(cadena_productos)
         
         if re.search(r"\b(monterrey|mty)\b", ciudad.group(1), re.IGNORECASE):
-                destination = self.destinationMailMTY
-                partnerID = 73
                 partnerName = "Alis"
                 user_id = 7
                 teamID = 4
         elif re.search(r"\b(saltillo|sty)\b", ciudad.group(1), re.IGNORECASE):
-                destination = self.destinationMailSaltillo
-                partnerID = 5352
                 user_id = 9
                 teamID = 5
                 partnerName = "Juan Jose"
@@ -517,42 +518,12 @@ CEA: control y elementos de Automatizacion
         
     
         
-        return self.sendMail(ciudad, content, destination)
+        return {
+            'content':self.confirmMsj,
+            'action':'none'
+        }
         
-    def sendMail(self, city, content,destMail):
-            #Creacion de un Correo por Odoo 
-            mail_id = self.models.execute_kw(
-            self.odooDB,
-            self.uid,
-            self.odooPass,
-            'mail.mail',
-            'create', [{
-                'subject':f'NUEVO LEAD DE VENTA REGISTRADO PARA {str(city).upper()}',
-                'body_html':f'<p>{content}<p>',
-                'email_to':destMail,
-                'email_from':self.myMail
-            }])
-            #Envio de correo
-            if mail_id:
-                self.models.execute_kw(
-                    self.odooDB,
-                    self.uid,
-                    self.odooPass,
-                    'mail.mail',
-                    'send',
-                    [[mail_id]],
-                    {}
-                    )
-                
-                return{
-                    'content': self.confirmMsj,
-                    'action':'none'
-                }
-            else:
-                return{
-                    'content':"Lo sentimos, se presentó un problema al enviar la notificación de tu cotización. Estamos trabajando para solucionarlo.",
-                    'action':'none'
-                }
+    
             
         
         
