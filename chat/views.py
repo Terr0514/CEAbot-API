@@ -534,7 +534,7 @@ CEA: control y elementos de Automatizacion
             }])
             #Envio de correo
             if mail_id:
-                self.models.execute.execute_kw(
+                self.models.execute_kw(
                     self.odooDB,
                     self.uid,
                     self.odooPass,
