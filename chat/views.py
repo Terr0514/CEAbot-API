@@ -346,9 +346,10 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                         self.odooPass,
                         'stock.quant',
                         'search_read',
-                        [[['product_id', '=', producto[0]['id']]]]
+                        [[['product_id', '=', producto[0]['id']]]],
+                        {'fields':[id, 'location_id']}
                     )
-                    print(quant)
+                    print(quant[0]['location_id'])
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
