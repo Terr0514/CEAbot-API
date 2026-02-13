@@ -345,7 +345,7 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                         self.uid,
                         self.odooPass,
                         'stock.quant',
-                        'search.read',
+                        'search_read',
                         [['product_id', '=', producto[0]['id']]]
                     )
                     print(quant)
