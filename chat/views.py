@@ -333,12 +333,22 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     'product.product',
                     'search_read',
                     [[('name', 'ilike', cadena)]],
-                    {'fields':[ 'name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
+                    {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
                     #:w
                     # self.arrPriceDict.append({"name":producto[0]['name'],"precio":producto[0]['listPrice'], "divisa":producto[0]['x_studio_moneda']})
+                    #Busqueda de almacen
+                    quant = self.models.execute_kw(
+                        self.odooDB,
+                        self.uid,
+                        self.odooPass,
+                        'stock.quant',
+                        'search.read',
+                        [['product_id', '=', producto[0]['id']]]
+                    )
+                    print(quant)
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
