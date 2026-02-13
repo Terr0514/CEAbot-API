@@ -346,7 +346,7 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                         self.odooPass,
                         'stock.quant',
                         'search_read',
-                        [['product_id', '=', producto[0]['id']]]
+                        [[['product_id', '=', producto[0]['id']]]]
                     )
                     print(quant)
                     arrEncontrados.append(producto[0]['name'])
