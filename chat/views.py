@@ -347,15 +347,20 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                         'stock.quant',
                         'search_read',
                         [[['product_id', '=', producto[0]['id']]]],
-                        {'fields':[id, 'location_id']}
+                        {'fields':['id', 'location_id']}
                     )
-                    print(quant[0]['location_id'])
+                    
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
                     countFound += 1
                     if producto[0]['qty_available'] > 0:
                         resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available']}"
+                        if quant and quant[0]['inventary_id'] == 252:
+                            resultados += f"\n⌚Tiempo de entrega: Inmediato"
+                        else:
+                            resultados += f"\n⌚Tiempo de entrega: De 3 a 5 dias"
+                            
                     else:
                         arrNoExistencias.append(producto[0]['name'])
                         print("DEBUG[Producto sin existencias]")
