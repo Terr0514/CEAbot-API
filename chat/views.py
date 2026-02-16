@@ -639,6 +639,8 @@ CEA: control y elementos de Automatizacion
         elif "Solicitud de Cotización" in user_message:
             print("Es una solicitud de cotización")
             return Response(self.procesUserData(user_message))
+        elif user_message == "API_TEST":
+            print("DEBUG[LA API ESTA ACTIVA]")
         else:
         #Se añade el historial de mensajes de la app front al de la API
             self.messages.extend(history)
@@ -656,8 +658,6 @@ CEA: control y elementos de Automatizacion
                     #se llama al metodo registrarCliente el resultado se devuelve como respuesta
                 elif re.search("(REGISTRO_CLIENTE):.*",responseContent):
                     response_text = self.registrarCliente(responseContent)
-                
-                
                 else:
                     response_text = response #en caso de que no sea ninguna de las dos, se pasa la respuesta del modelo
             
