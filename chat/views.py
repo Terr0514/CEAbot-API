@@ -307,7 +307,13 @@ solo puedes atender consultas técnicas de ese ámbito.
                     
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
-                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']} (IVA no incluido)"
+                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}"
+                    if(producto[0]['list_price'] > 0 and producto[0]['x_studio_moneda'] != False):
+                        resultados += f"\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']} (IVA no incluido)"
+                        
+                    else:
+                        resultados += "\n 💲 Precio por Unidad: ⚠️El precio de este producto actualmente esta descontinuado"
+                        
                     countFound += 1
                     if producto[0]['qty_available'] > 0:
                         resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available']}"
@@ -319,12 +325,12 @@ solo puedes atender consultas técnicas de ese ámbito.
                                 elif quant['location_id'][0] in provedoresIDs:
                                     stockProvedor += quant['quantity'] - quant['reserved_quantity']
                         print(f"DEBUG[Provedor: {stockProvedor} CEA: {stockCEA}]")
-                        if stockCEA != 0 and stockProvedor == 0:
+                        if stockCEA > 0 and stockProvedor <= 0:
                             resultados += "Inmediato."
-                        elif stockProvedor > stockCEA or stockCEA > stockProvedor:
+                        elif (stockCEA > 0 and stockProvedor > 0) and (stockProvedor > stockCEA or stockCEA > stockProvedor):
                             resultados += f"Inmediato para {stockCEA} piezas / De 3 a 5 dias para mas de {stockCEA} piezas."
-                        elif stockCEA == 0 and stockProvedor != 0:
-                            resultados += "De 3 a 5 dias"
+                        elif stockCEA <= 0 and stockProvedor > 0:
+                            resultados += "De 3 a 5 dias."
                         
                     else:
                         arrNoExistencias.append(producto[0]['name'])
@@ -534,22 +540,26 @@ CEA: control y elementos de Automatizacion
                 {'fields':['name', 'list_price', 'x_studio_moneda' , 'x_studio_marca_1']}
                 
             )
-            if product[0]['x_studio_moneda'] == 'USD':
-                c = CurrencyConverter()
-                basePrice = c.convert(product[0]['list_price'],'USD', 'MXN')
-            elif product[0]['x_studio_moneda'] == 'MXN':
-                basePrice = product[0]['list_price']
+            if product[0]['x_studio_moneda']:
+                if product[0]['x_studio_moneda'] == 'USD':
+                    c = CurrencyConverter()
+                    basePrice = c.convert(product[0]['list_price'],'USD', 'MXN')
+                elif product[0]['x_studio_moneda'] == 'MXN':
+                    basePrice = product[0]['list_price']
+            else: 
+                basePrice == 00
             totalPrice =+ basePrice * int(dicProd['unidades'])
+            
             if product[0]['x_studio_marca_1'] == 'PATLITE':
-                tagsID.append(1)
+                    tagsID.append(1)
             elif product[0]['x_studio_marca_1'] == 'PILZ':
-                tagsID.append(6)
+                    tagsID.append(6)
             elif product[0]['x_studio_marca_1'] == 'Parker Hannifin':
-                tagsID.append(8)
+                    tagsID.append(8)
             elif product[0]['x_studio_marca_1'] == 'CONTRINEX':
-                tagsID.append(14)
+                    tagsID.append(14)
             elif product[0]['x_studio_marca_1'] == 'PHOENIX CONTACT':
-                tagsID.append(15)
+                    tagsID.append(15)
         
         leadID = self.models.execute_kw(
                 self.odooDB,
@@ -593,6 +603,7 @@ CEA: control y elementos de Automatizacion
 
     #Metodo post para la API que resive el mensaje del usuario devuelve la respuesta del modelos
     def post(self, request):
+        messages = []
         #se rescive el historial de mensajes, ya que esta se debe almacenar desde
         #la aplicacion front
         history = request.data.get("messages",[])
@@ -608,11 +619,11 @@ CEA: control y elementos de Automatizacion
             print("DEBUG[LA API ESTA ACTIVA]")
         else:
         #Se añade el historial de mensajes de la app front al de la API
-            self.messages.extend(history)
-        
+            messages = self.messages.copy()
+            messages.append(history[-1])
             try:
                 #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
-                response = self.chat(self.messages)
+                response = self.chat(messages)
                 responseContent = response['content']
                 response_text = ""
                 #Si la REGEX coinside con el bloque de texto de consulta de datos se hace la llamada 
