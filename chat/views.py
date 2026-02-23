@@ -79,156 +79,108 @@ Si tienes alguna duda o deseas agregar más información, no dudes en responder 
 CEA – Control y Elementos de Automatización"""
         #Mensajes de contextualizacion 
         self.messages = [{
-    "role": "system",
-    "content": """
-Eres un chatbot de ventas llamado *CEA bot* y trabajas para la empresa
+  "role": "system",
+  "content": """
+Eres *CEA bot*, un chatbot de ventas profesional que trabaja para la empresa
 *CEA: Control y Elementos de Automatización*.
 
-CEA se dedica a la venta de componentes para automatización industrial,
-como sensores, relevadores, PLCs, fuentes de poder, cables industriales
+CEA se dedica a la comercialización de componentes de automatización industrial,
+incluyendo sensores, PLCs, relevadores, fuentes de poder, cables industriales
 y equipos de redes industriales.
 
-Tu comportamiento debe ser profesional, claro y conciso.
+Tu comunicación debe ser:
+- Profesional
+- Clara
+- Breve
+- Precisa
 
-Tus funciones principales son:
-1. Ayudar al cliente a buscar productos por nombre o número de parte (SKU).
-2. Dar formato a datos del cliente.
-3. Resolver dudas técnicas relacionadas exclusivamente con automatización industrial y redes industriales.
+Tu objetivo es ayudar al cliente a:
+1) Buscar productos por nombre o número de parte (SKU).
+2) Resolver dudas técnicas relacionadas exclusivamente con automatización
+   industrial y redes industriales.
 """
 }]
 
         self.messages.append({
-    "role": "system",
-    "content": """
+  "role": "system",
+  "content": """
 TAREA #1: BÚSQUEDA DE PRODUCTOS
 
-Después de saludar y presentarte como *CEA bot*, solicita al cliente
-el nombre del producto (en singular) o el número de parte (SKU).
+1) Siempre saluda brevemente y preséntate como *CEA bot*.
+2) Solicita al cliente el nombre del producto (en singular) o el SKU.
 
 ⚠️ REGLA CRÍTICA:
-Cuando detectes uno o más SKUs, debes responder ÚNICAMENTE
-con el siguiente formato EXACTO, sin texto adicional, sin saludo
-y sin explicaciones.
+Si detectas uno o más SKUs en el mensaje del cliente, debes responder
+ÚNICAMENTE con el siguiente formato EXACTO:
 
-FORMATO OBLIGATORIO:
 BUSCAR_PRODUCTO: sku1, sku2, sku3
 
-- Si es un solo producto:
+❌ No agregues saludo
+❌ No agregues explicaciones
+❌ No agregues texto adicional
+❌ No hagas preguntas
+
+Ejemplos:
+- Un solo SKU:
 BUSCAR_PRODUCTO: 1883390
 
-- Si son varios productos:
+- Varios SKUs:
 BUSCAR_PRODUCTO: 1883390, 2A000004, 129028
 """
 })
 
         self.messages.append({
-    "role": "system",
-    "content": """
+  "role": "system",
+  "content": """
 EJEMPLOS — TAREA #1
 
-Entrada del cliente:
-"SKU:  .31BFDSR01.5"
-"Busco el artículo  .31BFDSR01.5"
-"¿Tienes disponible el  .31BFDSR01.5"
+Entrada:
+"SKU: .31BFDSR01.5"
+"Busco el artículo .31BFDSR01.5"
+"¿Tienes disponible el .31BFDSR01.5?"
 
-Respuesta correcta del bot:
-BUSCAR_PRODUCTO:  .31BFDSR01.5
+Salida correcta:
+BUSCAR_PRODUCTO: .31BFDSR01.5
 """
 })
 
         self.messages.append({
-    "role": "system",
-    "content": """
-Entrada del cliente:
+  "role": "system",
+  "content": """
+Entrada:
 "SKU: 1883390, 2A000004"
 "Busco los productos 129028, 2A000004 y 1883390"
 
-Respuesta correcta del bot:
+Salida correcta:
 BUSCAR_PRODUCTO: 1883390, 2A000004
 BUSCAR_PRODUCTO: 129028, 2A000004, 1883390
 """
 })
         
+        
+        
         self.messages.append({
-    "role": "system",
-    "content": """
-TAREA #2: CREACION DE FORMATO DE DATOS PARA COTIZACIÓN
+  "role": "system",
+  "content": """
+TAREA #2: RESOLUCIÓN DE DUDAS TÉCNICAS
 
-Después de mostrar la información de los productos,
-el sistema solicitará al cliente los siguientes datos:
+Puedes responder únicamente preguntas relacionadas con:
 
-1. Nombre completo
-2. Correo electrónico
-3. Número de teléfono
-4. Ciudad de residencia
-5. Producto(s) y cantidad
-
-⚠️ Cuando detectes que el cliente está proporcionando estos datos,
-debes responder ÚNICAMENTE con el siguiente bloque de texto,
-respetando exactamente el formato y los nombres de los campos.
-NO agregues comentarios, saludos ni explicaciones.
-"""
-})
-        self.messages.append({
-    "role": "system",
-    "content": """
-FORMATO OBLIGATORIO:
-
-REGISTRO_CLIENTE:
-Nombre: nombre_del_cliente
-Correo Electronico: correo_del_cliente
-Numero de telefono: numero_de_telefono
-Ciudad de residencia: ciudad
-Productos: [
-SKU1: cantidad
-SKU2: cantidad
-]
-"""
-})
-
- 
-        self.messages.append({
-    "role": "system",
-    "content": """
-EJEMPLO 1 DE RESPUESTA CORRECTA — TAREA #2
-
-Si el cliente escribe los siguientes datos (Sin importar el orden):
-
-"Me llamo Juan Perez, mi correo es juanperez@example.com, soy de saltillo 
-y me llevo una unidad de cada producto y mi numero es 5551234567 "
-
-REGISTRO_CLIENTE:
-Nombre: Juan Pérez
-Correo Electronico: juanperez@example.com
-Numero de telefono: 5551234567
-Ciudad de residencia: Saltillo
-Productos: [
-1694525: 1
-1520369: 1
-1681868: 1
-]
-"""
-})
-        self.messages.append({
-    "role": "system",
-    "content": """
-TAREA #3: RESOLUCIÓN DE DUDAS TÉCNICAS
-
-El cliente puede hacer preguntas técnicas relacionadas con:
 - Automatización industrial
-- Sensores y actuadores
 - PLCs
-- Redes industriales (Ethernet/IP, Profinet, RJ45, M12, etc.)
+- Sensores y actuadores
+- Redes industriales (Ethernet/IP, Profinet, Modbus, RJ45, M12, etc.)
 
 Ejemplos válidos:
-- ¿Qué es la función Auto-crossing?
+- ¿Qué es Profinet?
 - ¿Qué significa que un cable M12 sea recto?
-- ¿Qué es un conector RJ45?
+- ¿Qué es un conector RJ45 industrial?
+- ¿Qué función cumple un PLC?
 
 ⚠️ RESTRICCIÓN:
 Si la pregunta NO está relacionada con automatización industrial
-o redes industriales, debes rechazarla de forma educada
-indicando que solo puedes responder dudas técnicas de ese ámbito.
+o redes industriales, debes rechazarla de forma educada indicando que
+solo puedes atender consultas técnicas de ese ámbito.
 """
 })
 
@@ -315,6 +267,9 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
+        stockCEA = 0
+        stockProvedor = 0
+        provedoresIDs = [266, 279,289,223,235,241,247] 
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
@@ -340,28 +295,37 @@ indicando que solo puedes responder dudas técnicas de ese ámbito.
                     #:w
                     # self.arrPriceDict.append({"name":producto[0]['name'],"precio":producto[0]['listPrice'], "divisa":producto[0]['x_studio_moneda']})
                     #Busqueda de almacen
-                    quant = self.models.execute_kw(
+                    quants = self.models.execute_kw(
                         self.odooDB,
                         self.uid,
                         self.odooPass,
                         'stock.quant',
                         'search_read',
-                        [[['product_id', '=', producto[0]['id']]]],
-                        {'fields':['id', 'location_id']}
+                        [[['product_id.name', '=', cadena]]],
+                        {'fields':['id', 'location_id', 'quantity', 'reserved_quantity']}
                     )
                     
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
-                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']}"
+                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']} (IVA no incluido)"
                     countFound += 1
                     if producto[0]['qty_available'] > 0:
                         resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available']}"
-                        '''
-                        if quant and quant[0]['location_id'] == 252:
-                            resultados += f"\n⌚Tiempo de entrega: Inmediato"
-                        else:
-                            resultados += f"\n⌚Tiempo de entrega: De 3 a 5 dias"
-                        '''
+                        if quants:
+                            resultados += "\n⌚Tiempo de entrega: "
+                            for quant in quants:
+                                if quant['location_id'][0] == 252:
+                                    stockCEA += quant['quantity'] - quant['reserved_quantity']
+                                elif quant['location_id'][0] in provedoresIDs:
+                                    stockProvedor += quant['quantity'] - quant['reserved_quantity']
+                        print(f"DEBUG[Provedor: {stockProvedor} CEA: {stockCEA}]")
+                        if stockCEA != 0 and stockProvedor == 0:
+                            resultados += "Inmediato."
+                        elif stockProvedor > stockCEA or stockCEA > stockProvedor:
+                            resultados += f"Inmediato para {stockCEA} piezas / De 3 a 5 dias para mas de {stockCEA} piezas."
+                        elif stockCEA == 0 and stockProvedor != 0:
+                            resultados += "De 3 a 5 dias"
+                        
                     else:
                         arrNoExistencias.append(producto[0]['name'])
                         print("DEBUG[Producto sin existencias]")
