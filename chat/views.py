@@ -280,7 +280,7 @@ solo puedes atender consultas técnicas de ese ámbito.
         #Se itera por cada elemento en el arreglo
         for cadena in cadenas:
             #Con expresiones regulares, se valida se la el elemento cumple con el patron de un SKU
-            if re.fullmatch(r'^[.-]?[A-Z0-9]+([./-][A-Z0-9]+)*$', cadena.strip()): #Si la cadena filtrada es es un numero de 7 digitos, es un SKU de Parker Phoenix 
+            if re.fullmatch(r'^[.-]?[a-zA-Z0-9]+([./-][a-zA-Z0-9]+)*$', cadena.strip()): #Si la cadena filtrada es es un numero de 7 digitos, es un SKU de Parker Phoenix 
                 #llamada a odoo con el elemento del arreglo
                 producto = self.models.execute_kw(
                     self.odooDB,
@@ -345,15 +345,14 @@ solo puedes atender consultas técnicas de ese ámbito.
                     arrnoEncontrados.append(cadena)
                     
             else:
-                promt= f"""La cadena {cadena} no cumple con los criterios establecidos para ser reconocida como un número de parte válido."""
-    
+                countFound = -1
         if arrnoEncontrados:#Se crea una lista en texto con los productos no encontrados
             for i, prod in enumerate(arrnoEncontrados):
                         if i == len(arrnoEncontrados) -1:
                             noEncontrados += prod.strip() + "."
                         else:
                             noEncontrados += prod.strip() + ", "
-        if resultados:#Si hay resultados se crea un texto final y este varia..
+        if countFound >0:#Si hay resultados se crea un texto final y este varia..
             #Dependiendo si solo se encontro un producto o mas, se utilizan plurales
             if  countFound == 1:
                 promt += "📦Este es el producto que podrias estar buscando:\n" + resultados
@@ -390,6 +389,8 @@ solo puedes atender consultas técnicas de ese ámbito.
 📧 Correo Electrónico
 📍 Ciudad de Residencia
 🧩 Número de Parte del/los producto(s) (y sus cantidades)"""
+        elif countFound == -1:
+            promt= f"""La cadena {cadena} no cumple con los criterios establecidos para ser reconocida como un número de parte válido."""
         else:#Del mismo modo, se crea un texto fiunal para los productos no encontrados
             promt += f"""No se encontraron en la base de datos productos que coinsidan con tu busqueda, por favor, 
 se mas especifico o proporcioname el SKU del producto."""
@@ -598,56 +599,7 @@ CEA: control y elementos de Automatizacion
             
             
 
-def createNewCotization(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
-    arrDicProd = []
-    orderline = []
-    price = 0
-    arrprod = productList.split('|')
-    cliente = self.models.execute_kw(
-            self.odooDB,
-            self.uid,
-            self.odooPass,
-            'rest.partner',
-            'search_read',
-            [[('name', '=', name)], [('emial', '=', email)]],
-            {'fields':['id']}
-            )
-    if not cliente:
-        print('lol')
-    for prod in arrprod:
-        print(prod)
-        if prod == '':
-            continue
-        unidProduct = prod.split(':')
-        arrDicProd.append({"sku":unidProduct[0], "unidades":unidProduct[1].replace(" ", "")})
-    for dicProd in arrDicProd:
-        product = self.models.execute_kw(
-            self.odooDB,
-            self.uid,
-            self.odooPass,
-            'product.template',
-            'search_read',
-            [[('name', '=', dicProd["sku"])]],
-            {'fields':['id','name', 'list_price', 'x_studio_moneda' , 'x_studio_marca_1']}
-                
-        )
-        if product[0]['x_studio_moneda']:
-            if product[0]['x_studio_moneda'] == 'USD':
-                c = CurrencyConverter()
-                price = c.convert(product[0]['list_price'],'USD', 'MXN')
-            elif product[0]['x_studio_moneda'] == 'MXN':
-                price = product[0]['list_price']
 
-        orderline.append((0,0, {
-            'product_id': product[0]['id'],
-            'product_uom_qty': dicProd['unidades'],
-            'price_unit': price
-            
-            }))
-
-    
-
-           
 
     #Metodo post para la API que resive el mensaje del usuario devuelve la respuesta del modelos
     def post(self, request):
