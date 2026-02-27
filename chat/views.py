@@ -288,7 +288,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                     self.odooPass,
                     'product.product',
                     'search_read',
-                    [[('name', 'ilike', cadena)]],
+                    [[('name', '=', cadena)]],
                     {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
