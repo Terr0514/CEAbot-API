@@ -68,14 +68,15 @@ class CeaBot_API(APIView):
         #Para calculo de precios y conversion de divisas
         self.arrPriceDict = []
         #Mensaje de confirmacion
-        self.confirmMsj = """¡Gracias por contactarnos!
+        self.confirmMsj = """¡Gracias por contactarnos! 🙌
 
-Hemos recibido correctamente tus datos de contacto y la solicitud de cotización para los productos de tu interés.
-Un agente de CEA: Control y Elementos de Automatización se pondrá en contacto contigo lo antes posible para brindarte la información detallada y ayudarte con tu cotización.
+Hemos recibido correctamente tus datos y tu solicitud de cotización para los productos de tu interés 🧾⚙️.
 
-Si tienes alguna duda o deseas agregar más información, no dudes en responder este mensaje.
+Un agente de CEA: Control y Elementos de Automatización se pondrá en contacto contigo a la brevedad para brindarte información detallada y ayudarte con tu cotización 📞💬.
 
-¡Estamos para ayudarte!
+Si tienes alguna duda o deseas agregar más información, no dudes en responder a este mensaje ✍️.
+
+¡Será un gusto atenderte! 🤝
 CEA – Control y Elementos de Automatización"""
         #Mensajes de contextualizacion 
         self.messages = [{
@@ -328,7 +329,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                         if stockCEA > 0 and stockProvedor <= 0:
                             resultados += "Inmediato."
                         elif (stockCEA > 0 and stockProvedor > 0) and (stockProvedor > stockCEA or stockCEA > stockProvedor):
-                            resultados += f"Inmediato para {stockCEA} piezas / De 3 a 5 dias para mas de {stockCEA} piezas."
+                            resultados += f"Entrega inmediata para pedidos de hasta {stockCEA} piezas. Para cantidades superiores a {stockCEA} piezas, el tiempo de entrega es de 3 a 5 días."
                         elif stockCEA <= 0 and stockProvedor > 0:
                             resultados += "De 3 a 5 dias."
                         
@@ -344,7 +345,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                     arrnoEncontrados.append(cadena)
                     
             else:
-                promt= f"""\n{cadena} no cumple con los requisitos necesarios para ser considerado un numero de parte."""
+                promt= f"""La cadena {cadena} no cumple con los criterios establecidos para ser reconocida como un número de parte válido."""
     
         if arrnoEncontrados:#Se crea una lista en texto con los productos no encontrados
             for i, prod in enumerate(arrnoEncontrados):
@@ -511,8 +512,6 @@ CEA: control y elementos de Automatizacion
         }
         
     
-            
-        
         
             
     #Metodo que toma los datos del cliente proporcionados por el chatbot y agenda un lead de venta en Odoo
@@ -560,7 +559,6 @@ CEA: control y elementos de Automatizacion
                     tagsID.append(14)
             elif product[0]['x_studio_marca_1'] == 'PHOENIX CONTACT':
                     tagsID.append(15)
-        
         leadID = self.models.execute_kw(
                 self.odooDB,
                 self.uid,
@@ -600,6 +598,56 @@ CEA: control y elementos de Automatizacion
             
             
 
+def createNewCotization(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
+    arrDicProd = []
+    orderline = []
+    price = 0
+    arrprod = productList.split('|')
+    cliente = self.models.execute_kw(
+            self.odooDB,
+            self.uid,
+            self.odooPass,
+            'rest.partner',
+            'search_read',
+            [[('name', '=', name)], [('emial', '=', email)]],
+            {'fields':['id']}
+            )
+    if not cliente:
+        print('lol')
+    for prod in arrprod:
+        print(prod)
+        if prod == '':
+            continue
+        unidProduct = prod.split(':')
+        arrDicProd.append({"sku":unidProduct[0], "unidades":unidProduct[1].replace(" ", "")})
+    for dicProd in arrDicProd:
+        product = self.models.execute_kw(
+            self.odooDB,
+            self.uid,
+            self.odooPass,
+            'product.template',
+            'search_read',
+            [[('name', '=', dicProd["sku"])]],
+            {'fields':['id','name', 'list_price', 'x_studio_moneda' , 'x_studio_marca_1']}
+                
+        )
+        if product[0]['x_studio_moneda']:
+            if product[0]['x_studio_moneda'] == 'USD':
+                c = CurrencyConverter()
+                price = c.convert(product[0]['list_price'],'USD', 'MXN')
+            elif product[0]['x_studio_moneda'] == 'MXN':
+                price = product[0]['list_price']
+
+        orderline.append((0,0, {
+            'product_id': product[0]['id'],
+            'product_uom_qty': dicProd['unidades'],
+            'price_unit': price
+            
+            }))
+
+    
+
+           
 
     #Metodo post para la API que resive el mensaje del usuario devuelve la respuesta del modelos
     def post(self, request):
