@@ -268,8 +268,6 @@ solo puedes atender consultas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
-        stockCEA = 0
-        stockProvedor = 0
         provedoresIDs = [266, 279,289,223,235,241,247] 
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
@@ -279,6 +277,8 @@ solo puedes atender consultas técnicas de ese ámbito.
         cadenas = coinsidencia[0].replace(" ","").split(",")#Se eliminan los espacios
         #Se itera por cada elemento en el arreglo
         for cadena in cadenas:
+            stockCEA = 0
+            stockProvedor = 0
             #Con expresiones regulares, se valida se la el elemento cumple con el patron de un SKU
             if re.fullmatch(r'^[.-]?[a-zA-Z0-9]+([./-][a-zA-Z0-9]+)*$', cadena.strip()): #Si la cadena filtrada es es un numero de 7 digitos, es un SKU de Parker Phoenix 
                 #llamada a odoo con el elemento del arreglo
@@ -322,9 +322,9 @@ solo puedes atender consultas técnicas de ese ámbito.
                             resultados += "\n⌚Tiempo de entrega: "
                             for quant in quants:
                                 if quant['location_id'][0] == 252:
-                                    stockCEA += quant['quantity'] - quant['reserved_quantity']
+                                    stockCEA += quant['quantity'] 
                                 elif quant['location_id'][0] in provedoresIDs:
-                                    stockProvedor += quant['quantity'] - quant['reserved_quantity']
+                                    stockProvedor += quant['quantity'] 
                         print(f"DEBUG[Provedor: {stockProvedor} CEA: {stockCEA}]")
                         if stockCEA > 0 and stockProvedor <= 0:
                             resultados += "Inmediato."
