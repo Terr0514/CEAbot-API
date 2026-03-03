@@ -422,9 +422,9 @@ se mas especifico o proporcioname el SKU del producto."""
         clientNumber = re.search(r"Numero de telefono:\s(.+)",entrada, re.IGNORECASE)
         products =  re.search(r"\[([^\]]*)\]",entrada, re.DOTALL)
         partnerID = 5353
-        user_id = 10
+        user_id = 22
         teamID = 1
-        partnerName = 'Alan'
+        partnerName = 'Manuel'
         print(products)
         
         if city:
@@ -468,9 +468,9 @@ CEA: control y elementos de Automatizacion
     
     def procesUserData(self, entrada):
         
-        user_id = 10
+        user_id = 22
         teamID = 1
-        partnerName = 'Alan'
+        partnerName = 'Manuel'
         nombre = re.search(r"Nombre:\s*(.+)", entrada)
         telefono = re.search(r"Teléfono:\s*(\d+)", entrada)
         correo = re.search(r"Correo:\s*([\w\.-]+@[\w\.-]+\.\w+)", entrada)
