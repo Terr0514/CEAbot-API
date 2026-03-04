@@ -289,7 +289,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                     'product.product',
                     'search_read',
                     [[('name', '=', cadena)]],
-                    {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available' ]}
+                    {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available', 'x_studio_marca1' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
@@ -308,7 +308,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                     
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
-                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}"
+                    resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n®️ Marca: {producto[0]['x_studio_marca']}"
                     if(producto[0]['list_price'] > 0 and producto[0]['x_studio_moneda'] != False):
                         resultados += f"\n💲 Precio por Unidad: {producto[0]['list_price']} {producto[0]['x_studio_moneda']} (IVA no incluido)"
                         
