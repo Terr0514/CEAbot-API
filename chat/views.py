@@ -620,7 +620,8 @@ CEA: control y elementos de Automatizacion
         else:
         #Se añade el historial de mensajes de la app front al de la API
             messages = self.messages.copy()
-            messages.append(history[-1])
+            if messages: 
+               messages.append(history[-1])
             try:
                 #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
                 response = self.chat(messages)
