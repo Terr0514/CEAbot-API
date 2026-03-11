@@ -268,7 +268,7 @@ solo puedes atender consultas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
-        provedoresIDs = [266, 279,289,223,235,241,247] 
+        provedoresIDs = [266,279,285,223,235,241,247] 
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
