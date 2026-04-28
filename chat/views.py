@@ -42,7 +42,7 @@ class CeaBot_API(APIView):
         self.apiKey3 = settings.API_KEY3
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
-        self.url = "https://openrouter.ai/api/completions"
+        self.url = "https://openrouter.ai/api/v1/chat/completions"
         self.model = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
         self.messages = []
         self.mail = EmailMessage()
