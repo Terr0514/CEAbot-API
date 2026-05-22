@@ -43,7 +43,7 @@ class CeaBot_API(APIView):
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
-        self.model = "arcee-ai/trinity-large-thinking:free"
+        self.model = "openrouter/owl-alpha"
         self.messages = []
         self.mail = EmailMessage()
         #CREDENCIALES EMAIL
@@ -67,7 +67,7 @@ class CeaBot_API(APIView):
             print(f'Error de conexion: {e}')
         #Para calculo de precios y conversion de divisas
         self.arrPriceDict = []
-        #Mensaje de confirmacio": "No se recivio un mensaje de parte del usuario"n
+        #Mensaje de confirmacion
         self.confirmMsj = """¡Gracias por contactarnos! 🙌
 
 Hemos recibido correctamente tus datos y tu solicitud de cotización para los productos de tu interés 🧾⚙️.
@@ -268,7 +268,7 @@ solo puedes atender consultas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
-        provedoresIDs = [266, 279,285,223,235,241,247] 
+        provedoresIDs = [266,279,285,223,235,241,247] 
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
@@ -468,8 +468,6 @@ CEA: control y elementos de Automatizacion
     
     def procesUserData(self, entrada):
         
-        arrDicProduct = []
-        BolCotiz = True
         user_id = 22
         teamID = 1
         partnerName = 'Manuel'
@@ -480,31 +478,10 @@ CEA: control y elementos de Automatizacion
         productos = re.findall(r"SKU\s+([\w\d]+):\s*(\d+)", entrada)
 
         cadena_productos = ""
-        """
+
         for sku, cantidad in productos:
             cadena_productos += f"{sku}:{cantidad}|"
-        """
-        
-        for sku, unidades in productos:
-            product = self.models.execute_kw(
-                self.odooDB,
-                self.uid,
-                self.odooPass,
-                'product.template',
-                'search_read',
-                [[('name', '=', sku)]],
-                {'fields':['id','list_price', 'x_studio_moneda', 'qty_available', 'x_studio_marca_1']}
-            )
-            arrDicProduct.append({
-                'id': product[0]['id'], 
-                'SKU': sku,
-                'unidades': unidades,
-                'precio': product[0]['list_price'],
-                'moneda': product[0]['x_studio_moneda'],
-                'stock': product[0]['qty_available'],
-                'marca': product[0]['x_studio_marca_1']
-            })
-        
+
         print(cadena_productos)
         
         if re.search(r"\b(monterrey|mty)\b", ciudad.group(1), re.IGNORECASE):
@@ -525,14 +502,8 @@ Saludos,
 CEA bot 
 Asistente de ventas 
 CEA: control y elementos de Automatizacion
-"""      
-        for prod in arrDicProduct:
-            if prod['stock'] == 0 or prod['precio'] == 0 or float(prod['unidades']) > prod['stock']:
-                BolCotiz = False
-        if BolCotiz:
-            self.createNewCotization(city=ciudad.group(1), name=nombre.group(1), email=correo.group(1), phoneNumber=telefono.group(1), productList = arrDicProduct, userID = user_id, teamID=teamID, msjContent = content)
-        else:    
-            self.createNewLead(city=ciudad.group(1), name=nombre.group(1), email=correo.group(1), phoneNumber=telefono.group(1), productList = arrDicProduct, userID = user_id, teamID=teamID, msjContent = content)             
+"""     
+        self.createNewLead(city=ciudad.group(1), name=nombre.group(1), email=correo.group(1), phoneNumber=telefono.group(1), productList = cadena_productos, userID = user_id, teamID=teamID, msjContent = content)             
         
     
         
@@ -548,28 +519,46 @@ CEA: control y elementos de Automatizacion
     def createNewLead(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
         print(productList)
         tagsID = []
-        
-        for prod in productList:
-            
-            if prod['moneda']:
-                if prod['moneda'] == 'USD':
+        arrDicProd = []
+        arrprod = productList.split('|')
+        totalPrice = 0
+        print(arrprod)
+        for prod in arrprod:
+            print(prod)
+            if prod == '':
+                continue
+            unidProduct = prod.split(':')
+            arrDicProd.append({"sku":unidProduct[0], "unidades":unidProduct[1].replace(" ", "")})
+        for dicProd in arrDicProd:
+            product = self.models.execute_kw(
+                self.odooDB,
+                self.uid,
+                self.odooPass,
+                'product.template',
+                'search_read',
+                [[('name', '=', dicProd["sku"])]],
+                {'fields':['name', 'list_price', 'x_studio_moneda' , 'x_studio_marca_1']}
+                
+            )
+            if product[0]['x_studio_moneda']:
+                if product[0]['x_studio_moneda'] == 'USD':
                     c = CurrencyConverter()
-                    basePrice = c.convert(prod['precio'],'USD', 'MXN')
-                elif prod['moneda'] == 'MXN':
-                    basePrice = prod['precio']
+                    basePrice = c.convert(product[0]['list_price'],'USD', 'MXN')
+                elif product[0]['x_studio_moneda'] == 'MXN':
+                    basePrice = product[0]['list_price']
             else: 
                 basePrice == 00
-            totalPrice =+ basePrice * int(prod['unidades'])
+            totalPrice =+ basePrice * int(dicProd['unidades'])
             
-            if prod['marca'] == 'PATLITE':
+            if product[0]['x_studio_marca_1'] == 'PATLITE':
                     tagsID.append(1)
-            elif prod['marca'] == 'PILZ':
+            elif product[0]['x_studio_marca_1'] == 'PILZ':
                     tagsID.append(6)
-            elif prod['marca'] == 'Parker Hannifin':
+            elif product[0]['x_studio_marca_1'] == 'Parker Hannifin':
                     tagsID.append(8)
-            elif prod['marca'] == 'CONTRINEX':
+            elif product[0]['x_studio_marca_1'] == 'CONTRINEX':
                     tagsID.append(14)
-            elif product['marca'] == 'PHOENIX CONTACT':
+            elif product[0]['x_studio_marca_1'] == 'PHOENIX CONTACT':
                     tagsID.append(15)
         leadID = self.models.execute_kw(
                 self.odooDB,
@@ -608,79 +597,7 @@ CEA: control y elementos de Automatizacion
                 
             )
             
-    def createNewCotization(self, name, email, phoneNumber, productList, city, userID, teamID, msjContent):
-        orderline = []
-        price = 0        
-        client = self.models.execute_kw(
-            self.odooDB,
-            self.uid,
-            self.odooPass,
-            'res.partner',
-            'search_read',
-            [[('name', '=', name), ('email', '=', email)]],
-            {'fields':['id']}
-        )
-        client_ID = client[0]['id']
-        if not client:
-            client_ID = self.models.execute_kw(
-                self.odooDB,
-                self.uid, 
-                self.odooPass,
-                'res.partner',
-                'create',
-                [{
-                    'name': name, 
-                    'email': email, 
-                    'phone': phoneNumber,
-                    'city': city,
-                    'country_id': 156,
-                    'comment': 'Creado por CEAbot'
-                }]
-            )
-        for prod in productList:                
-            if prod['moneda']:
-                if prod['moneda'] == 'USD':
-                    c = CurrencyConverter()
-                    price = c.convert(prod['precio'], 'USD', 'MXN')
-                elif prod['moneda'] == 'MXN':
-                    price = prod['precio']
-                    
-                orderline.append((0,0, {
-                    'product_id': prod['id'],
-                    'product_uom_qty': prod['unidades'],
-                    'price_unit':price
-                }))
-        cotiz = self.models.execute_kw(
-            self.odooDB,
-            self.uid,
-            self.odooPass,
-            'sale.order',
-            'create',
-            [{
-                'partner_id' : client_ID,
-                'date_order' : datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                'note': f"Cotizacion creada por CEAbot para {name} de {city}",
-                'user_id': userID,
-                'team_id': teamID,
-                'company_id': 1,
-                'order_line':orderline
-            }
-            ]
-        )
-        if cotiz != 0:
             
-            self.models.execute_kw(
-                self.odooDB,
-                self.uid, 
-                self.odooPass,
-                'sale.order',
-                'message_post',
-                [[cotiz]],
-                {
-                'body':msjContent,
-                'message_type': 'comment',
-                'subtype_xmlrd': 'mail.mt_comment'}
-            )
 
 
 
@@ -703,7 +620,8 @@ CEA: control y elementos de Automatizacion
         else:
         #Se añade el historial de mensajes de la app front al de la API
             messages = self.messages.copy()
-            messages.append(history[-1])
+            if messages: 
+               messages.append(history[-1])
             try:
                 #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
                 response = self.chat(messages)
