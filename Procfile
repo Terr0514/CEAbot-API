@@ -1,1 +1,1 @@
-web: gunicorn CeaBot.wsgi
+web: gunicorn CeaBot.wsgi --timeout 120
