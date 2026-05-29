@@ -43,7 +43,7 @@ class CeaBot_API(APIView):
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
-        self.model = "arcee-ai/trinity-large-thinking:free"
+        self.model = "openrouter/owl-alphax"
         self.messages = []
         self.mail = EmailMessage()
         #CREDENCIALES EMAIL
@@ -159,7 +159,6 @@ BUSCAR_PRODUCTO: 129028, 2A000004, 1883390
 })
         
         
-        
         self.messages.append({
   "role": "system",
   "content": """
@@ -268,7 +267,8 @@ solo puedes atender consultas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
-        provedoresIDs = [266,279,285,223,235,241,247] 
+        provedoresIDs = [266,279,285,223,235,241,247]
+        internosIDs = [252, 254, 319, 682]
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
@@ -321,7 +321,7 @@ solo puedes atender consultas técnicas de ese ámbito.
                         if quants:
                             resultados += "\n⌚Tiempo de entrega: "
                             for quant in quants:
-                                if quant['location_id'][0] == 252:
+                                if quant['location_id'][0] in internosIDs:
                                     stockCEA += quant['quantity'] 
                                 elif quant['location_id'][0] in provedoresIDs:
                                     stockProvedor += quant['quantity'] 
@@ -621,7 +621,7 @@ CEA: control y elementos de Automatizacion
         #Se añade el historial de mensajes de la app front al de la API
             messages = self.messages.copy()
             if messages: 
-               messages.append(history[-1])
+                messages.append(history[-1])
             try:
                 #Se llama al metodo chat y se pasa como parametro el historial de mensajes Global
                 response = self.chat(messages)
