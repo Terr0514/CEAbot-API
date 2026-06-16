@@ -43,7 +43,7 @@ class CeaBot_API(APIView):
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
-        self.model = "meta-llama/llama-3.3-70b-instruct:free"
+        self.model = "openai/gpt-oss-120b:free"
         self.messages = []
         self.mail = EmailMessage()
         #CREDENCIALES EMAIL
