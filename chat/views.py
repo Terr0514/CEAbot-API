@@ -186,71 +186,47 @@ solo puedes atender consultas técnicas de ese ámbito.
 
     #Openrouter necesita de la libreria de OpenAI para funcionar        
     def chat(self, messages):
-        
-        randNum = 1    #random.randint(1,4)
-        apiKey = ""
-        if randNum == 1:
-            apiKey = self.apiKey1
-        elif randNum == 2:
-            apiKey = self.apiKey2
-        elif randNum == 3:
-            apiKey = self.apiKey3
-        elif randNum == 4:
-            apiKey = self.apiKey4
-        
-        allAPIS = [self.apiKey1,self.apiKey2,self.apiKey3,self.apiKey4]
-        notSelectedApis = [api for api in allAPIS if api != apiKey]
-        
-        for i, api in enumerate(notSelectedApis):
+        try:
+            self.client = OpenAI(api_key=self.apiKey1, base_url=self.url)
             
-            try:
-                self.client = OpenAI(api_key= apiKey , base_url= self.url)
-                chat = self.client.chat.completions.create(
-                    model= self.model,
-                    messages= messages, #el diccionario "messages" contiene el historial de mensajes 
-                    )
-                
-                if not chat:
-                    print("ERROR Respuesta vacia de openRouter")
-                    return {
-                        'content': 'Lo siento, ha habido un problema en al procesar tu mensaje.',
-                        'action':'none'
-                    }
-                content = chat.choices[0].message.content
-        
-                if not content:
-                    print("ERROR el contenido de la respuesta esta vacio")
-                    apiKey = api
-                    if i > len(notSelectedApis) -1:
-                        continue
-                    
-                    return{
-                        'content':'Lo siento, ha habido un problema al precesar tu mensaje.',
-                        'action': 'none'
-                    }    
-                
+            chat = self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+        )
+
+            if not chat:
+                print("ERROR Respuesta vacia de openRouter")
                 return {
-                    'content': content,
-                    'action':'none'
-                }
-            
-            except AttributeError as e:
-                print(f"ERROR AtributeError")
-                print(f"Objeto chat {chat}")
-                apiKey = api
-                if i > len(notSelectedApis) -1:
-                    continue
+                'content': 'Lo siento, ha habido un problema al procesar tu mensaje.',
+                'action': 'none'
+            }
+
+            content = chat.choices[0].message.content
+
+            if not content:
+                print("ERROR el contenido de la respuesta esta vacio")
                 return {
-                    'content':'Lo siento, ha habido un error al prcesar tu mensaje.',
-                    'action':'none'
-                }
-            except Exception as e:
-                print(f"Error deconocido: {e}")
-                apiKey = api
-                if i > len(notSelectedApis) -1:
-                    continue
-                return {'content':'Lo siento, ha habido un problema al conectarme con la base de datos.',
-                        'action':'none'}
+                'content': 'Lo siento, ha habido un problema al procesar tu mensaje.',
+                'action': 'none'
+            }
+
+            return {
+            'content': content,
+            'action': 'none'
+            }
+
+        except AttributeError as e:
+            print(f"ERROR AttributeError: {e}")
+            return {
+            'content': 'Lo siento, ha habido un error al procesar tu mensaje.',
+            'action': 'none'
+        }
+        except Exception as e:
+            print(f"Error desconocido: {e}")
+            return {
+            'content': 'Lo siento, ha habido un problema al conectarme con la base de datos.',
+            'action': 'none'
+            }
     
     """
     Este metodo hace consultas de BD en Odoo via XMLRPC y procesa una salida de 
