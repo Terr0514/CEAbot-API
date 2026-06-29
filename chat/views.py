@@ -43,7 +43,7 @@ class CeaBot_API(APIView):
         self.apiKey4 = settings.API_KEY4
         #PARAMETROS OPENROUTER
         self.url = "https://openrouter.ai/api/v1"
-        self.model = "openrouter/owl-alpha"
+        self.model = "deepseek/deepseek-v4-flash"
         self.messages = []
         self.mail = EmailMessage()
         #CREDENCIALES EMAIL
@@ -187,7 +187,7 @@ solo puedes atender consultas técnicas de ese ámbito.
     #Openrouter necesita de la libreria de OpenAI para funcionar        
     def chat(self, messages):
         
-        randNum = random.randint(1,4)
+        randNum = 1    #random.randint(1,4)
         apiKey = ""
         if randNum == 1:
             apiKey = self.apiKey1
