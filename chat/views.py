@@ -243,8 +243,7 @@ solo puedes atender consultas técnicas de ese ámbito.
         action = "none"
         arrnoEncontrados = []
         arrNoExistencias = []
-        provedoresIDs = [266,279,285,223,235,241,247]
-        internosIDs = [252, 254, 319, 682]
+        
         #Se utilizan regex para eliminar el bloque de texto 'BUSCAR_PRODUCTO'
         coinsidencia = re.findall(r"(?:BUSCAR_PRODUCTO|Producto|producto):\s*(.*)", entrada,re.IGNORECASE)
         
@@ -265,23 +264,13 @@ solo puedes atender consultas técnicas de ese ámbito.
                     'product.product',
                     'search_read',
                     [[('name', '=', cadena)]],
-                    {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available', 'x_studio_marca_1' ]}
+                    {'fields':[ 'id','name', 'default_code', 'list_price', 'x_studio_moneda','qty_available', 'x_studio_marca_1', 'x_studio_cantidad_en_proveedor' ]}
                         )
                 #Si el producto se encuentra, se agrega una variable un formularios con los elementos de este 
                 if producto:
                     #:w
                     # self.arrPriceDict.append({"name":producto[0]['name'],"precio":producto[0]['listPrice'], "divisa":producto[0]['x_studio_moneda']})
                     #Busqueda de almacen
-                    quants = self.models.execute_kw(
-                        self.odooDB,
-                        self.uid,
-                        self.odooPass,
-                        'stock.quant',
-                        'search_read',
-                        [[['product_id.name', '=', cadena]]],
-                        {'fields':['id', 'location_id', 'quantity', 'reserved_quantity']}
-                    )
-                    
                     arrEncontrados.append(producto[0]['name'])
                     action = 'form'
                     resultados += f"\n🔢 Número de Parte: {producto[0]['name']}\n📝 Descripción:\n{producto[0]['default_code']}\n®️ Marca: {producto[0]['x_studio_marca_1']}"
@@ -292,15 +281,12 @@ solo puedes atender consultas técnicas de ese ámbito.
                         resultados += "\n 💲 Precio por Unidad: ⚠️El precio de este producto actualmente esta descontinuado"
                         
                     countFound += 1
-                    if producto[0]['qty_available'] > 0:
-                        resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available']}"
-                        if quants:
-                            resultados += "\n⌚Tiempo de entrega: "
-                            for quant in quants:
-                                if quant['location_id'][0] in internosIDs:
-                                    stockCEA += quant['quantity'] 
-                                elif quant['location_id'][0] in provedoresIDs:
-                                    stockProvedor += quant['quantity'] 
+                    if producto[0]['qty_available'] + producto[0]['x_studio_cantidad_en_proveedor'] > 0:
+                        resultados += f"\n🧮Unidades en stock: {producto[0]['qty_available'] + producto[0]['x_studio_cantidad_en_proveedor']}"
+                        resultados += "\n⌚Tiempo de entrega: "
+                        stockCEA = producto[0]['qty_available'] 
+                        stockProvedor = producto[0]['x_studio_cantidad_en_proveedor'] 
+                        
                         print(f"DEBUG[Provedor: {stockProvedor} CEA: {stockCEA}]")
                         if stockCEA > 0 and stockProvedor <= 0:
                             resultados += "Inmediato."
